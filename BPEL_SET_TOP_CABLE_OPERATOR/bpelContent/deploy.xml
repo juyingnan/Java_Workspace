@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:cn.edu.pku.ss.bank="http://cn.edu.pku.ss.bank" xmlns:ss.pku.edu.cn="ss.pku.edu.cn" xmlns:tempuri.org="http://tempuri.org/">
+  <process name="ss.pku.edu.cn:CABLE_OPERATOR_PROCESS">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="ss.pku.edu.cn:CABLE_OPERATOR_PROCESSService" port="CABLE_OPERATOR_PROCESSPort"/>
+    </provide>
+    <invoke partnerLink="client">
+      <service name="ss.pku.edu.cn:CABLE_OPERATOR_PROCESSServiceCallback" port="CABLE_OPERATOR_PROCESSPortCallbackPort"/>
+    </invoke>
+    <invoke partnerLink="verificationPL">
+      <service name="tempuri.org:CableService" port="CableServiceSoap"/>
+    </invoke>
+    <invoke partnerLink="bankPL">
+      <service name="cn.edu.pku.ss.bank:BankServiceService" port="BankService"/>
+    </invoke>
+  </process>
+</deploy>

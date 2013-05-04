@@ -1,0 +1,46 @@
+<uml>
+   <greenVersion="30500"/>
+   <type>
+      <name="=TestingPlatform/src<cn.edu.pku.ss.test.jobs{JobFlow.java[JobFlow"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="45"/>
+      <y="188"/>
+   </type>
+   <type>
+      <name="=TestingPlatform/src<cn.edu.pku.ss.test.jobs{JobFlow.java[JobFlow[FlowType"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="199"/>
+      <y="376"/>
+   </type>
+   <type>
+      <name="=TestingPlatform/src<cn.edu.pku.ss.test.jobs{IJob.java[IJob"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="47"/>
+      <y="38"/>
+   </type>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.realization.RealizationPart"/>
+      <sourceType="=TestingPlatform/src<cn.edu.pku.ss.test.jobs{JobFlow.java[JobFlow"/>
+      <targetType="=TestingPlatform/src<cn.edu.pku.ss.test.jobs{IJob.java[IJob"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <type>
+      <name="=TestingPlatformJ/D:\/Program Files\/Java\/jre6\/lib\/rt.jar<java.util(ArrayList.class[ArrayList"/>
+      <height="160"/>
+      <width="326"/>
+      <x="335"/>
+      <y="48"/>
+   </type>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
+      <sourceType="=TestingPlatform/src<cn.edu.pku.ss.test.jobs{JobFlow.java[JobFlow"/>
+      <targetType="=TestingPlatformJ/D:\/Program Files\/Java\/jre6\/lib\/rt.jar<java.util(ArrayList.class[ArrayList"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+</uml>
+

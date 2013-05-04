@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetCableInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CustomerID" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="EventID" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCableInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCableInfoResult" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdCableInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CustomerID" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="EventID" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdCableInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdCableInfoResult" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetCableInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCableInfo"/>
+  </wsdl:message>
+  <wsdl:message name="GetCableInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCableInfoResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UpdCableInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdCableInfo"/>
+  </wsdl:message>
+  <wsdl:message name="UpdCableInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdCableInfoResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="CableServiceSoap">
+    <wsdl:operation name="GetCableInfo">
+      <wsdl:input message="tns:GetCableInfoSoapIn"/>
+      <wsdl:output message="tns:GetCableInfoSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="UpdCableInfo">
+      <wsdl:input message="tns:UpdCableInfoSoapIn"/>
+      <wsdl:output message="tns:UpdCableInfoSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CableServiceSoap" type="tns:CableServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetCableInfo">
+      <soap:operation soapAction="http://tempuri.org/GetCableInfo" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdCableInfo">
+      <soap:operation soapAction="http://tempuri.org/UpdCableInfo" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CableServiceSoap12" type="tns:CableServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetCableInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetCableInfo" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdCableInfo">
+      <soap12:operation soapAction="http://tempuri.org/UpdCableInfo" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CableService">
+    <wsdl:port name="CableServiceSoap" binding="tns:CableServiceSoap">
+      <soap:address location="http://localhost:8077/CableService.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="CableServiceSoap12" binding="tns:CableServiceSoap12">
+      <soap12:address location="http://localhost:8077/CableService.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

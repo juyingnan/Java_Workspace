@@ -1,0 +1,332 @@
+package cn.edu.pku.ss.test.testcase;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import cn.edu.pku.ss.test.jobs.compilers.JavaCompiler;
+
+public class TestCaseExecutor {
+	private String testClassName;
+	@SuppressWarnings("unchecked")
+	private Class testClass;
+	private String testMethodName;
+	private Method testMethod;
+	private String testPath;
+	private String testSrcPath;
+	private String monitorName;
+	private MonitorType monitorType;
+	private boolean isLoaded;
+	private ExecuteResult result;
+	private Object data;
+	
+	public TestCaseExecutor() {
+		monitorType = MonitorType.Field;
+	}
+
+	public TestCaseExecutor(String testPath, String testClassName,
+		String testMethodName, String monitorName) {
+		setTestPath(testPath);
+		setTestClassName(testClassName);
+		setTestMethodName(testMethodName);
+		setMonitorName(monitorName);
+		//Debug.println(monitorName);
+		monitorType = MonitorType.Field;
+	}
+
+	public boolean loadClass(){
+		isLoaded = false;		
+		try {
+			
+			//加载.class
+			File file = new File(testPath);
+			System.out.println("%%%%%%%%%%%In TestCaseExecutor testPath " + testPath.toString());
+//			JobConst.TARGET_PATH_BIN = testPath.toString();
+//			System.out.println("xzhong"+JobConst.TARGET_PATH_BIN);
+			URL[] urls = new URL[]{file.toURI().toURL()};
+			ClassLoader testCaseLoader = new CustomLoader(urls,Thread.currentThread().getContextClassLoader());
+			System.out.println("TestCaseExecutor : after new CustomLoader");
+			try{
+				System.out.println("testClassName : " + testClassName);
+				testClass = testCaseLoader.loadClass(testClassName);
+				//testClass.newInstance();
+			} catch (Exception  e){
+				e.printStackTrace();
+
+			}
+			System.out.println("TestCaseExecutor : after try catch");
+	
+			//加载方法
+			Method[] methods = testClass.getMethods();
+			System.out.println("TestCaseExecutor : after testClass.getMethods()");
+			for (Method method : methods) {
+				System.out.println("TestCaseExecutor : after for (Method method : methods)");
+				String str = method.getName();
+				if (str.equals(testMethodName)){
+					testMethod = method;
+					isLoaded = true;
+					break;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return isLoaded;
+	}
+
+	public boolean isLoaded(){
+		return isLoaded;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ExecuteResult execute(MethodParam params){
+//		System.out.println(".....enter into execute.....");
+//		System.out.println(params.get(0) + ":" + params.get(2));
+		testSrcPath = testPath;
+		testSrcPath = testSrcPath.replaceAll("bin", "src");
+		String staticClassPath = JavaCompiler.getStaticClassPath();
+		String staticBin = JavaCompiler.getStaticBin();
+		String warn = JavaCompiler.WARN;
+		String make = JavaCompiler.MAKE;
+		String staticSourceFileName = JavaCompiler.getStaticSourceFileName();
+//		System.out.println("~~~~================================");
+//		System.out.println("testSrcPath : " + testSrcPath);
+//		System.out.println("staticClassPath : " + staticClassPath);
+//		System.out.println("staticBin : " + staticBin);
+//		System.out.println("warn : " + warn);
+//		System.out.println("make : " + make);
+//		System.out.println("~~~~================================");
+		MethodParam methodParams = new MethodParam();
+		if(!isLoaded){
+			System.out.println("loadClass in TestCaseExecutor");
+			loadClass();
+		}
+		
+		result = new ExecuteResult();
+		
+		
+		
+		try {
+			int k=0;
+			Object obj = testClass.newInstance();
+			Method method = getTestMethod();
+//			System.out.println("%%%%%%%%%%%In TestCaseExecutor method : " + method.toString());
+//			Type[] methodParaTypes = method.getParameterTypes();
+//			for(k=0;k<methodParaTypes.length;k++){
+//				methodParams.add(k, params.get(k));
+//			}
+			
+//added by xzhong==================
+			Class[] methodParaTypes = method.getParameterTypes();
+			for(k = 0;k<methodParaTypes.length;k++){
+				Constructor constructor = null;
+				Constructor[] cs = methodParaTypes[k].getConstructors();
+				constructor = cs[0];
+				ArrayList pa = new ArrayList();
+				for(int n = 0;n<constructor.getParameterTypes().length;n++){
+					pa.add(1);
+				}
+//				for(int n = 0;n<cs.length;n++){
+//					if(cs[n].getParameterTypes().length == params.size()){
+//						constructor = cs[n];
+//					}
+//				}
+				Object oo = constructor.newInstance(pa.toArray());
+				
+			
+//				Object oo = methodParaTypes[k].newInstance();
+//				oo = params.get(k);
+				Field[] fs1 = methodParaTypes[k].getDeclaredFields();
+				for(int n = 0;n<fs1.length;n++){
+					fs1[n].setAccessible(true);
+//					fs1[n].set(oo, params.get(k).getClass().getDeclaredFields()[n]);
+					fs1[n].set(oo, n+k);
+				}
+				methodParams.add(k, oo);
+			}
+//================================================			
+			
+//			System.out.println("In testcaseExecutor : " + "k : " + k + "params.size() : " + params.size());
+			for(int j=k;j<params.size();j++){
+				String s = testSrcPath + JavaCompiler.getStaticSourceFileName();
+				Pattern p = Pattern.compile("\\\\");
+				Matcher m = p.matcher(s);
+				s = m.replaceAll("/");
+
+				File f = new File(s);
+				System.out.println("@@@@@@@@@" + s);
+				try {
+					FileReader fr = new FileReader(f);
+					BufferedReader bf = new BufferedReader(fr);
+					StringBuffer sb = new StringBuffer();
+					while(true){
+						String tempLine = bf.readLine();
+						if(tempLine != null){
+							if(tempLine.indexOf("need mocked")!=-1){
+//								String s = new String(source);
+								Pattern pattern = Pattern.compile("=\\s*\\-*\\w*");
+								Matcher matcher = pattern.matcher(tempLine);
+//								System.out.println(matcher.replaceAll("= 5"));
+								System.out.println(matcher.replaceAll(" = " + params.get(j)));
+								sb.append(matcher.replaceAll("= " + params.get(j))+"\n");
+//								source = matcher.replaceAll(" = 10");
+							}
+							else{
+								sb.append(tempLine+"\n");
+							}
+						}
+						else
+							break;
+					}
+					FileWriter fw = new FileWriter(new File(s));
+					fw.write(sb.toString());
+					fw.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			JavaCompiler.compile(staticClassPath, staticBin, testSrcPath, warn);
+			
+//			loadClass();//reload class
+			
+			result.setReturn(method.invoke(obj, methodParams.toArray()));
+//			result.setReturn(method.invoke(obj, methodParams));
+			result.setSuccess(true);
+			
+			//Debug.println("--start--");
+			if(monitorType == MonitorType.Null){
+				return result;
+			}
+			else if (monitorType == MonitorType.Field){
+				
+				if(monitorName!=null && monitorName.length()>0){
+					Field[] fs = testClass.getFields();
+					for(int i =0 ; i< fs.length; i++){
+						
+						if(fs[i].getName().equals(monitorName)){
+							//Debug.println(fs[i].getName() + "****" +monitorName);
+							result.setMonitor(fs[i].get(obj));	
+							break;
+						}
+					}
+				}
+			} else if (monitorType == MonitorType.Method){
+				if(monitorName!=null && monitorName.length()>0){
+					Method[] ms = testClass.getMethods();
+						for(int i =0 ; i< ms.length; i++){
+						if(ms[i].getName() == monitorName){
+							result.setMonitor(ms[i].invoke(obj));	
+							break;
+						}
+					}
+				}
+			} else {
+				result.setMonitor(obj);	
+			}
+			
+		} catch (Exception ex) {
+			
+			ex.printStackTrace();
+			result.setSuccess(false);
+			result.setException(ex);
+
+		}
+		
+		return result;
+	}
+	
+	public String getTestClassName() {
+		return testClassName;
+	}
+	public void setTestClassName(String testClassName) {
+		this.testClassName = testClassName;
+	}
+	@SuppressWarnings("unchecked")
+	public Class getTestClass() {
+		return testClass;
+	}
+
+	public String getTestMethodName() {
+		return testMethodName;
+	}
+	public void setTestMethodName(String testMethodName) {
+		this.testMethodName = testMethodName;
+	}
+	
+	
+	public Method getTestMethod() {
+		return testMethod;
+	}
+
+	public String getTestPath() {
+		return testPath;
+	}
+	public void setTestPath(String testPath) {
+		this.testPath = testPath;
+	}
+	
+	public ArrayList<Type> getMethodParaTypes() {
+		Type[] paraTypes = getTestMethod().getParameterTypes();
+		ArrayList<Type> paraTypesList = new ArrayList<Type>();
+
+		Collections.addAll(paraTypesList, paraTypes);
+
+		return paraTypesList;
+	}
+	
+	public Type getReturnType(){
+		return getTestMethod().getGenericReturnType();		
+	}
+
+	public void setMonitorName(String monitorName) {
+		this.monitorName = monitorName;
+	}
+
+	public String getMonitorName() {
+		return monitorName;
+	}
+
+	public ExecuteResult getExecutedResult() {
+		return result;
+	}
+	
+	
+	public void setMonitorType(MonitorType monitorType) {
+		this.monitorType = monitorType;
+	}
+
+	public MonitorType getMonitorType() {
+		return monitorType;
+	}
+
+
+	public void setData(Object data) {
+		this.data = data;
+	}
+
+	public Object getData() {
+		return data;
+	}
+
+
+	public enum MonitorType{
+		Field,
+		Method,
+		Object,
+		Null
+	}
+	
+	
+}

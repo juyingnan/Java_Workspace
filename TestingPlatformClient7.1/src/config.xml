@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+	<!--sase.seforge.org localhost:8080-->
+	<UploadURL>http://localhost:8080/TWeb/servlet/FileUploaded</UploadURL>
+	<!--no use any more-->
+	<TestingService>http://localhost:8080/TWeb/services/TestingImp?wsdl</TestingService>	
+</Configuration>

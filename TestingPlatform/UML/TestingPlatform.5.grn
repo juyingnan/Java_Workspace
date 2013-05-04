@@ -1,0 +1,46 @@
+<uml>
+   <greenVersion="30500"/>
+   <type>
+      <name="=TestingPlatform/src<cn.edu.pku.ss.test.testcase{MethodParamArray.java[MethodParamArray"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="0"/>
+      <y="0"/>
+   </type>
+   <type>
+      <name="=TestingPlatform/src<cn.edu.pku.ss.test.testcase{MethodParam.java[MethodParam"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="200"/>
+      <y="0"/>
+   </type>
+   <type>
+      <name="=TestingPlatform/src<cn.edu.pku.ss.test.testcase{TestCaseExecutor.java[TestCaseExecutor"/>
+      <height="627"/>
+      <width="420"/>
+      <x="400"/>
+      <y="0"/>
+   </type>
+   <type>
+      <name="=TestingPlatform/src<cn.edu.pku.ss.test.testcase{TestCaseExecutor.java[TestCaseExecutor[MonitorType"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="960"/>
+      <y="152"/>
+   </type>
+   <type>
+      <name="=TestingPlatform/src<cn.edu.pku.ss.test.testcase{ExecuteResult.java[ExecuteResult"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="37"/>
+      <y="197"/>
+   </type>
+   <type>
+      <name="=TestingPlatform/src<cn.edu.pku.ss.test.testcase{CustomLoader.java[CustomLoader"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="1014"/>
+      <y="266"/>
+   </type>
+</uml>
+

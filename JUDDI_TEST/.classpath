@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/axis.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/commons-beanutils-core-1.7.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/commons-collections.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/commons-configuration-1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/commons-digester-1.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/commons-discovery-0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/commons-lang-2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/commons-pool.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/jaxrpc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/juddi-client-3.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/juddi-core-3.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/junit-dep-4.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/log4j-1.2.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/mysql-connector-java-5.1.17-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/uddi-ws-3.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bunny_000/Documents/SS/0B102 Web Services技术/HWs/HW-2/reference/连接uddi需要的类/wsdl4j-1.6.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

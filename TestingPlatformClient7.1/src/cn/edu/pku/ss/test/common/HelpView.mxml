@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="920" height="460" title="Help" 
+	creationComplete="centerWindow()" showCloseButton="true" close="closeWindow()" xmlns:ns1="cn.edu.pku.ss.test.common.*">
+	<mx:Script>
+        <![CDATA[
+            import mx.managers.PopUpManager;
+            import mx.controls.Alert;
+            
+            public function centerWindow():void
+            {
+            	PopUpManager.centerPopUp(this);
+            }
+            
+            public function closeWindow():void
+            {
+            	PopUpManager.removePopUp(this);
+            }
+            
+            public function loadComplete(e:Event):void{
+            	Alert.show(swf.width.toString() + "*" + swf.height.toString() );
+            }
+            
+       ]]>
+       
+	</mx:Script>
+	<mx:SWFLoader id="swf" left="0" top="0" width="640" height="480" source="Help.swf" complete="loadComplete(event);" />
+
+
+    
+</mx:TitleWindow>

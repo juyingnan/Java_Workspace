@@ -1,0 +1,39 @@
+<uml>
+   <greenVersion="30500"/>
+   <type>
+      <name="=TestingPlatform/src<cn.edu.pku.ss.test.testcase.generators{GeneParam.java[GeneParam"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="0"/>
+      <y="0"/>
+   </type>
+   <type>
+      <name="=TestingPlatform/src<cn.edu.pku.ss.test.testcase.generators{GeneEvaluator.java[GeneEvaluator"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="515"/>
+      <y="315"/>
+   </type>
+   <type>
+      <name="=TestingPlatform/src<cn.edu.pku.ss.test.testcase.generators{GeneGenerator.java[GeneGenerator"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="78"/>
+      <y="314"/>
+   </type>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.dependency.DependencyIPart"/>
+      <sourceType="=TestingPlatform/src<cn.edu.pku.ss.test.testcase.generators{GeneGenerator.java[GeneGenerator"/>
+      <targetType="=TestingPlatform/src<cn.edu.pku.ss.test.testcase.generators{GeneEvaluator.java[GeneEvaluator"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.association.AssociationPart"/>
+      <sourceType="=TestingPlatform/src<cn.edu.pku.ss.test.testcase.generators{GeneGenerator.java[GeneGenerator"/>
+      <targetType="=TestingPlatform/src<cn.edu.pku.ss.test.testcase.generators{GeneEvaluator.java[GeneEvaluator"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+</uml>
+

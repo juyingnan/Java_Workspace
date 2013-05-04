@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//src/ws/example/add/AddService.java=UTF-8
+encoding//src/ws/example/add/AddServiceService.java=UTF-8
+encoding//src/ws/example/add/AddServiceServiceLocator.java=UTF-8
+encoding//src/ws/example/add/AddServiceSoapBindingStub.java=UTF-8
+encoding//src/ws/example/sub/SubService.java=UTF-8
+encoding//src/ws/example/sub/SubServiceService.java=UTF-8
+encoding//src/ws/example/sub/SubServiceServiceLocator.java=UTF-8
+encoding//src/ws/example/sub/SubServiceSoapBindingStub.java=UTF-8

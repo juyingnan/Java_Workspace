@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+* The MIT License
+*
+* Copyright (c) 2008
+* United Nations Office at Geneva
+* Center for Advanced Visual Analytics
+* http://cava.unog.ch
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+* 
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+* 
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
+-->
+
+<!--mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+				xmlns:ravis="org.un.cava.birdeye.ravis.graphLayout.visual.*"
+				width="100%" height="100%" xmlns:layout="org.un.cava.birdeye.ravis.graphLayout.layout.*" xmlns:s="library://ns.adobe.com/flex/spark"-->
+
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+		   xmlns:ravis="org.un.cava.birdeye.ravis.graphLayout.visual.*"
+		   creationComplete="initData()" width="100%" height="100%" xmlns:layout="org.un.cava.birdeye.ravis.graphLayout.layout.*" xmlns:s="library://ns.adobe.com/flex/spark">
+		
+	<!--
+	DEMO LEVEL 2:
+	The purpose of this demo is to explain the basics for creating a simple graph with the
+	use of data-based renderers and styling.
+	
+	From LEVEL 1
+	1.) Using an XML data source
+	2.) Initiating a graph
+	3.) Setting a layouter
+	
+	LEVEL 2
+	4.) Setting an edge line style parameter (color) based on data
+	5.) Specifying a node renderer (colorSizeNodeRenderer.mxml) which will color and size based on data
+	6.) Customizing an edge label
+	-->
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.*;
+			import mx.events.*;
+			
+			import org.un.cava.birdeye.ravis.graphLayout.data.Graph;
+			import org.un.cava.birdeye.ravis.graphLayout.data.IGraph;
+			import org.un.cava.birdeye.ravis.graphLayout.data.INode;
+			import org.un.cava.birdeye.ravis.graphLayout.layout.HierarchicalLayouter;
+			import org.un.cava.birdeye.ravis.graphLayout.layout.ILayoutAlgorithm;
+			import org.un.cava.birdeye.ravis.graphLayout.visual.IEdgeRenderer;
+			import org.un.cava.birdeye.ravis.graphLayout.visual.IVisualGraph;
+			import org.un.cava.birdeye.ravis.graphLayout.visual.IVisualNode;
+			import org.un.cava.birdeye.ravis.graphLayout.visual.VisualGraph;
+			import org.un.cava.birdeye.ravis.graphLayout.visual.VisualNode;
+			import org.un.cava.birdeye.ravis.graphLayout.visual.edgeRenderers.DirectedArrowEdgeRenderer;
+			import org.un.cava.birdeye.ravis.graphLayout.visual.edgeRenderers.DirectedBalloonEdgeRenderer;
+			import org.un.cava.birdeye.ravis.utils.events.VGraphEvent;
+			
+			// These are the item renderers
+			//			import renderers.nodes.mxml.basicNodeRenderer;
+			//			import renderers.edgelabels.mxml.basicEdgeLabelRenderer;
+			
+			/* 
+			* The following local variables hold various
+			* important object references
+			*/
+			
+			// graph datastructure object
+			private var graph:IGraph;
+			// active layouter
+			private var layouter:ILayoutAlgorithm;
+			// edge renderer
+			private var selectedEdgeRenderer:IEdgeRenderer;
+			// root node to start with
+			private var startRoot:IVisualNode;
+			// this is used to display the number of visible items
+			private var itemCount:int = 0;
+			// important to ensure we are done with the main initialisation
+			private var initDone:Boolean = false;
+			
+//			private var xmldata:XML;
+			/*
+			* event handler for HTTPService, does all the remaining required
+			* initialisation */
+			
+			
+//			private var xmldata:XML = <Graph>
+//								<Node id="4" name="4" nodeSize="30" nodeColor="0x4682b4"/>
+//								<Node id="5" name="5" nodeSize="30" nodeColor="0x4682b4"/>
+//								<Node id="13" name="13" nodeSize="30" nodeColor="0x4682b4"/>
+//								<Node id="6" name="6" nodeSize="30" nodeColor="0x4682b4"/>
+//								<Node id="9" name="9" nodeSize="30" nodeColor="0x4682b4"/>
+//								<Node id="14" name="14" nodeSize="30" nodeColor="0x4682b4"/>
+//								<Node id="16" name="16" nodeSize="30" nodeColor="0x4682b4"/>
+//								<Node id="11" name="11" nodeSize="30" nodeColor="0x4682b4"/>
+//								<Node id="19" name="19" nodeSize="30" nodeColor="0x4682b4"/>
+//
+//								<Edge fromID="4" toID="5" color="0x4682b4"/>
+//								<Edge fromID="4" toID="13" color="0x4682b4"/>
+//								<Edge fromID="5" toID="6" color="0x4682b4"/>
+//								<Edge fromID="5" toID="9" color="0x4682b4"/>
+//								<Edge fromID="6" toID="11" color="0x4682b4"/>
+//								<Edge fromID="9" toID="11" color="0x4682b4"/>
+//								<Edge fromID="11" toID="19" color="0x4682b4"/>
+//								<Edge fromID="13" toID="14" color="0x4682b4"/>
+//								<Edge fromID="13" toID="16" color="0x4682b4"/>
+//								<Edge fromID="14" toID="19" color="0x4682b4"/>
+//								<Edge fromID="16" toID="19" color="0x4682b4"/>
+//							</Graph>;
+			private var xmldata:XML;
+			//			var xmldata:XML = <Graph>
+			//				<Node id="1" name="1" nodeSize="30" nodeColor="0xff0000"/>
+			//				<Node id="2" name="2" nodeSize="30" nodeColor="0xff0000"/>
+			//				<Node id="3" name="3" nodeSize="30" nodeColor="0x4682b4"/>
+			//				<Node id="4" name="4" nodeSize="30" nodeColor="0xff0000"/>
+			//				<Node id="5" name="5" nodeSize="30" nodeColor="0x4682b4"/>
+			//				<Node id="6" name="6" nodeSize="30" nodeColor="0x4682b4"/>
+			//				<Node id="7" name="7" nodeSize="30" nodeColor="0xff0000"/>
+			//				<Edge fromID="1" toID="2" color="0xff0000"/>
+			//				<Edge fromID="1" toID="3" color="0x4682b4"/>
+			//				<Edge fromID="2" toID="4" color="0xff0000"/>
+			//				<Edge fromID="2" toID="5" color="0x4682b4"/>
+			//				<Edge fromID="3" toID="5" color="0x4682b4"/>
+			//				<Edge fromID="3" toID="6" color="0x4682b4"/>
+			//				<Edge fromID="4" toID="7" color="0xff0000"/>
+			//				<Edge fromID="5" toID="7" color="0x4682b4"/>
+			//				<Edge fromID="6" toID="7" color="0x4682b4"/>
+			//			  </Graph>;
+//			private var basicPathSet:XML = <basicPathSet>
+//										<basicPath>
+//											<node id="1"/>
+//											<node id="2"/>
+//											<node id="4"/>
+//											<node id="7"/>
+//										</basicPath>
+//										<basicPath>
+//											<node id="1"/>
+//											<node id="2"/>
+//											<node id="5"/>
+//											<node id="7"/>
+//										</basicPath>
+//										<basicPath>
+//											<node id="1"/>
+//											<node id="3"/>
+//											<node id="5"/>
+//											<node id="7"/>
+//										</basicPath>
+//										<basicPath>
+//											<node id="1"/>
+//											<node id="3"/>
+//											<node id="6"/>
+//											<node id="7"/>
+//										</basicPath>
+//									</basicPathSet>;
+
+			
+			private var basicPathSet:XML;
+			
+			public function getBasicPathXML(sourceXML:XML):void{
+				var item:XMLList = basicPathSet.basicPath[itemSelected-1].node;
+				//				var itemEdge:XMLList = sourceXML.Edge;
+				//				var itemNode:XMLList = sourceXML.Node;
+				
+				for(var i:int = 0;i<item.length()-1;i++){
+					for(var j:int = 0;j<sourceXML.Edge.length();j++){
+						if(item[i].@id == sourceXML.Edge[j].@fromID && item[i+1].@id == sourceXML.Edge[j].@toID){
+							sourceXML.Edge[j].@color = "0xff0000";
+						}							
+					}
+				}
+				
+				for(var m:int = 0;m<item.length();m++){
+					for(var n:int = 0;n<sourceXML.Node.length();n++){
+						if(item[m].@id == sourceXML.Node[n].@id){
+							sourceXML.Node[n].@nodeColor = "0xff0000";
+						}							
+					}					
+				}
+				
+			}
+			
+			private function initData():void {
+				
+				display.text = TestingObject.Instance.Result;
+				
+				var fgString:String = TestingObject.Instance.Result.split("$$$$$")[0];
+				var BPString:String = TestingObject.Instance.Result.split("$$$$$")[1];
+				
+				xmldata = new XML(fgString);
+				basicPathSet = new XML(BPString);
+				/* init a graph object with the XML data */
+				graph = new org.un.cava.birdeye.ravis.graphLayout.data.Graph("XMLAsDocsGraph",false,xmldata);
+				
+				/* set the graph in the VGraph object, this automatically
+				* initializes the VGraph items; 
+				* note: vgraph is the id of the mxml specified VisualGraph component */
+				vgraph.graph = graph;
+				
+				/* set the default layouter type */
+				layouter = new HierarchicalLayouter(vgraph);
+				vgraph.layouter = layouter;
+				
+				/* set autofit */
+				layouter.autoFitEnabled = true;
+				
+				/* set the layouter */
+				vgraph.edgeRenderer = new DirectedArrowEdgeRenderer(vgraph.edgeDrawGraphics);
+				
+				/* set the visibility limit options, default 2 
+				* a.k.a degrees of separation */
+				vgraph.maxVisibleDistance = 10;
+				
+				/* select a root node, most layouters requires a root node
+				*  Note: Id 1 is referring to node id in the XML file */
+				startRoot = graph.nodeByStringId("0").vnode;
+				
+				/* set if edge labels should be displayed */
+				vgraph.displayEdgeLabels = true;
+				
+				/* the following kicks it off .... */
+				vgraph.currentRootVNode = startRoot;
+				initDone = true;
+				vgraph.draw();
+				
+			}
+			
+			[Bindable]
+			public var list:ArrayCollection = new ArrayCollection(
+				[ {label:"-- Please select an Independent Basis Path --", data:-1},
+					{label:"Independent Basis Path 1", data:1}, 
+					{label:"Independent Basis Path 2", data:2}, 
+					{label:"Independent Basis Path 3", data:3},
+					{label:"Independent Basis Path 4", data:4}]);
+			
+			public var itemSelected:int;
+			private var xmldataBasicPath:XML = xmldata.copy();
+			
+			public function chooseBasicPath(event:Event):void {
+				xmldataBasicPath = xmldata.copy();
+				myLabel.text = ""+  ComboBox(event.target).selectedItem.label;
+				//				myData.text = "Data: " +  ComboBox(event.target).selectedItem.data;
+				itemSelected = ComboBox(event.target).selectedItem.data;
+				getBasicPathXML(xmldataBasicPath);
+				//				display.text = xmldataBasicPath.toString();
+				initData();
+			}
+			
+			public function activate():void{
+				TestingObject.Instance.addEventListener(TestingObject.TESTINGEVENT, initData);
+				TestingObject.Instance.doTesting();
+				TestingObject.Instance.showPop(this);
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Style source="styles/main.css" />
+	<!--mx:XML id="xmldata" source="data/graph111.xml" /-->	
+	<mx:Panel id="main" title="Flow graph" width="100%" height="100%" 
+			  verticalAlign="middle" horizontalAlign="center" 
+			  borderColor="#CCCCCC" paddingBottom="5" horizontalGap="5">
+		<mx:Canvas id="graphCnvs" width="100%" height="100%"  >		
+			<ravis:VisualGraph id="vgraph" width="100%" height="100%" 
+							   left="0" right="0" top="0" bottom="0"
+							   backgroundColor="#FFFFFF" alpha="1"
+							   itemRenderer="renderers.nodes.mxml.sizeColorNodeRenderer"
+							   edgeLabelRenderer="renderers.edgelabels.mxml.basicEdgeLabelRenderer" 
+							   visibilityLimitActive="true"
+							   >
+				
+			</ravis:VisualGraph>
+			<mx:ComboBox dataProvider="{list}" change="chooseBasicPath(event)" x="20" y="20"/>
+			<mx:Label id="myLabel" x="30" y="150"/>
+			<!--mx:Label id="myData" x="200" y="200" text="Data: 1"/-->
+			
+			<!--mx:Label text="Double Click Node to Traverse Graph" bottom="0" right="5" /-->
+			<mx:TextArea id="display" height="500" width="200"/>
+			
+		</mx:Canvas>
+	</mx:Panel>
+</mx:Canvas>

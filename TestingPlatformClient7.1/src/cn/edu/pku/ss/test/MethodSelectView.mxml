@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="700" height="280" >
+<mx:Metadata> 
+ [Event(name="SkipEvent",type="flash.events.Event")] 
+</mx:Metadata> 
+
+	<mx:Script>  	
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.controls.Label;  
+			
+		 	[Bindable]  
+            public var arrItems:ArrayCollection = new ArrayCollection();  
+		
+	    	public function initializeView():void{
+	    		
+	    		if(arrItems!=null)arrItems.removeAll();
+	    	}
+	    	
+	    	public function activate():void{
+	    		if(TestingObject.Instance.isAST()){
+	    			this.dispatchEvent(new Event("SkipEvent"));
+			        
+	    		} else {
+	    			//注册一个测试结束事件
+	    			TestingObject.Instance.addEventListener(TestingObject.TESTINGEVENT, testingComplete);
+	    			TestingObject.Instance.getMethodList();
+	    			TestingObject.Instance.showPop(this);
+	    		}	    		
+	    	}   
+	    	
+	    	public function selectMethodChanged(event:Event):void{
+	    		//Alert.show(methodList.selectedItem.data);
+	    		//var l:Label = Label(methodList.selectedItem);
+	    		var m:String = methodList.selectedItem.data;
+	    		//Alert.show(m);
+	    		if(TestingObject.Instance.getSourceType()==TestingObject.JAVA){
+	    			var arr:Array = m.split("|");
+	    			TestingObject.Instance.setTestingMethod(arr[0].toString(), arr[1].toString());
+	    		} else {
+	    			TestingObject.Instance.setTestingMethod("", m);
+	    		}
+	    		
+	    	}
+	    	
+	    	
+	    	public function testingComplete(e:Event):void{
+	    		//解除测试结束事件
+	    		TestingObject.Instance.removeEventListener(TestingObject.TESTINGEVENT, testingComplete);
+	    		//解析结果
+	    		//Alert.show(TestingObject.Instance.Result);
+	    		var str:String = TestingObject.Instance.Result;
+// 				Alert.show("result"+str);
+	    		arrItems.removeAll();
+	    		if(TestingObject.Instance.getSourceType()==TestingObject.JAVA){
+	    			var arr:Array = str.split(";");
+	    			for(var i:int = 0; i< arr.length; i++){
+	    				if(arr[i].toString().length==0){
+	    					continue;
+	    				} else {
+	    					//Alert.show(arr[i].toString());
+	    					var arrsub:Array = arr[i].toString().split(',');
+	    					//Alert.show(arrsub.length.toString());
+	    					var className:String = "";
+	    					for(var j:int = 0; j< arrsub.length; j++){
+	    						if(arrsub[j].toString().length==0){
+		    						continue;
+			    				} else {
+			    					if(className==""){
+			    						className = arrsub[j].toString();
+			    					} else {
+			    						arrItems.addItem({label:className + "." +  arrsub[j].toString() , data:className + "|" +  arrsub[j].toString()});
+			    					}
+			    				}
+	    					}
+	    				}
+	    			}
+	    		} else {
+	    			var arrF:Array = str.split(",");
+	    			for(var l:int = 0; l< arrF.length; l++){
+	    				if(arrF[l].toString().length==0){
+	    					continue;
+	    				} else {
+	    					arrItems.addItem({label: arrF[l].toString() , data:arrF[l].toString()});
+	    				}
+	    			}
+	    		}
+	    		
+	    		if(arrItems.length>0){
+	    			methodList.selectedIndex = 0;
+	    			selectMethodChanged(null);
+	    		} else {
+	    			Alert.show("Please check your source, it may contain some error.");
+	    		}
+	    	} 
+	    ]]>
+	</mx:Script>
+	<mx:Text x="97.5" y="43" text="Please select a target method or function" fontWeight="bold" fontSize="16" height="30" fontFamily="Courier New"/>
+	<mx:List id="methodList" x="97.5" y="91" width="70%" dataProvider="{arrItems}" 
+				itemRenderer="mx.controls.Label" change="selectMethodChanged(event);" height="60%"></mx:List>
+</mx:Canvas>

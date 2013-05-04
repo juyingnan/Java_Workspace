@@ -1,0 +1,25 @@
+<uml>
+   <greenVersion="30500"/>
+   <type>
+      <name="=TestingPlatformJ/src<cn.edu.pku.ss.test.service{ConditionTest.java[ConditionTest"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="82"/>
+      <y="217"/>
+   </type>
+   <type>
+      <name="=TestingPlatformJ/src<cn.edu.pku.ss.test.service{MyServiceMain.java[MyServiceMain"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="200"/>
+      <y="0"/>
+   </type>
+   <type>
+      <name="=TestingPlatformJ/src<cn.edu.pku.ss.test.service{MyService.java[MyService"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="400"/>
+      <y="0"/>
+   </type>
+</uml>
+

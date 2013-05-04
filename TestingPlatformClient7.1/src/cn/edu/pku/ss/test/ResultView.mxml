@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="1052" height="612" xmlns:components="com.components.*" xmlns:components1="cn.edu.pku.ss.test.com.components.*" label="Caculate">
+	<mx:Script>  	
+		<![CDATA[
+			import flash.utils.flash_proxy;
+			
+			import flashx.textLayout.elements.TextFlow;
+			import flashx.textLayout.tlf_internal;
+			
+			import memorphic.xpath.XPathQuery;
+			
+			import mx.collections.XMLListCollection;
+			import mx.controls.Alert;
+			import mx.controls.textClasses.TextRange;
+			import mx.core.IUITextField;
+			import mx.core.mx_internal;
+			import mx.events.ItemClickEvent;
+			import mx.events.TreeEvent;
+
+			private var treeXml:XML;
+			
+			[Bindable]
+			public var selectedNode:XML;
+			public var resultXML:XML;
+			private var tr:TextRange;
+			private var textField:TextField;
+			
+			
+	    	public function initializeView():void{
+	    		if(textBoxResult!=null)textBoxResult.text = "";
+	    	}    
+	    	
+	    	public function activate():void{
+	    		//注册一个测试结束事件
+//				var targetURL:String;
+//				var request:URLRequest;
+//				var variables:URLLoader;
+				
+	    		TestingObject.Instance.addEventListener(TestingObject.TESTINGEVENT, testingComplete);
+	    		TestingObject.Instance.doTesting();
+				
+//				if(xmlTree.dataProvider==null){
+//					targetURL="http://localhost/NewClient/syntaxTreeFile.xml";
+//					request=new URLRequest(targetURL);
+//					variables=new URLLoader();
+//				
+//				preInit(variables,request);
+	    		TestingObject.Instance.showPop(this);
+//				}
+//				else if(xmlTree.dataProvider!=null)
+//				{
+////					Alert.show("dataProvider.." + xmlTree.dataProvider.toString());
+//					xmlTree.dataProvider = null;
+////					xmlTree = null;
+//					targetURL="http://localhost/NewClient/syntaxTreeFile.xml";
+//					request=new URLRequest(targetURL);
+//					variables=new URLLoader();
+//					
+//					preInit(variables,request);
+//					TestingObject.Instance.showPop(this);
+//				}
+				
+				
+	    	}   
+	    	
+	    	public function testingComplete(e:Event):void{
+	    		//解除测试结束事件
+	    		TestingObject.Instance.removeEventListener(TestingObject.TESTINGEVENT, testingComplete);
+				if(TestingObject.Instance.TestingType == TestingObject.JAVAAST)
+				{
+					treeXml = new XML(TestingObject.Instance.Result.split("$$$$$")[0]);
+					xmlTree.setVisible(true);
+					xmlTree.dataProvider = treeXml;
+					var pattern1:RegExp = new RegExp("\\n","g");
+					var pattern2:RegExp = new RegExp("\\t","g");
+					var text:String = TestingObject.Instance.getCode();
+				    text = text.replace(pattern2,"        ");
+					text = text.replace(pattern1,"");
+					textBoxResult.text = text;
+					hDividedBox.x = 16;
+				}
+				else
+				{
+					xmlTree.dataProvider = null;
+					xmlTree.setVisible(false);
+					textBoxResult.text = TestingObject.Instance.Result;
+					hDividedBox.x = 100;
+				}
+	    	} 
+			
+			public function preInit(variables:URLLoader, request:URLRequest):void
+			{
+				//var targetURL:String="http://10.1.0.33/temp/myTxt.xml";
+//				Alert.show("preInit");
+				
+				variables.addEventListener(Event.COMPLETE,completeHandler);              
+				try
+				{
+					//					status="加载成功--啦啦啦";
+					variables.load(request);
+				}
+				catch(error:Error)
+				{
+					//					status="加载失败";
+//					Alert.show("load error");
+					trace("无法加载"+error);
+				}
+			}
+			
+			private function completeHandler(event:Event):void
+			{
+//				Alert.show("completeHandler");
+				trace(event.target.data is String);
+				selectedNode=new XML(event.target.data);
+				xmlTree.dataProvider=selectedNode;
+				textBoxResult.text = "Code Result\n";
+				textBoxResult.text += TestingObject.Instance.getCode();
+			}
+
+			
+			private function showBlock():void{
+				textBoxResult.scrollBlock(int(beginIndex.text),int(endIndex.text));
+				
+				try {
+					/* Default the TextArea control's text color back to black. */
+					tr = new TextRange(textBoxResult);
+					tr.color = "black";
+					tr.textDecoration = "normal";
+					
+					/* Set the text color to red for the values in the Slider. */
+					tr = new TextRange(textBoxResult, false, int(beginIndex.text), int(endIndex.text));
+					tr.color = colorPicker.selectedColor;
+				} catch (err:RangeError) {
+				}
+			}
+
+
+			protected function caculateBeginEndIndex():void
+			{
+				// TODO Auto-generated method stub
+				var beginEndIndex:Array;
+				beginEndIndex = textBoxResult.caculateBeginEndIndex(int(beginLine.text),
+					int(beginColumn.text),int(endLine.text),int(endColumn.text));
+			    beginIndex.text = beginEndIndex[0].toString();
+				endIndex.text = beginEndIndex[1].toString();
+			}
+			
+			private function showTree(item:XML):String
+			{
+				return item.localName();
+			}
+			
+			private function getBeginEndIndex():void
+			{
+			 beginLine.text = xmlTree.selectedItem["@beginLine"].toString();
+			 beginColumn.text = xmlTree.selectedItem["@beginColumn"].toString()
+			 endLine.text = xmlTree.selectedItem["@endLine"].toString()
+			 endColumn.text = xmlTree.selectedItem["@endColumn"].toString()
+			}
+			
+			private function highLight():void
+			{
+				getBeginEndIndex();
+				caculateBeginEndIndex();
+				showBlock();
+				
+			}
+			
+			private function query(event:Event):void{
+				var expression:String = xPath.text;
+				var query:XPathQuery = new XPathQuery(expression);
+				var result:XMLList = query.exec(treeXml);
+				
+//				clear();
+				for each(var item:XML in result){
+					display(item);
+				}
+				
+			}
+			
+			private function display(item:XML):void{
+//				textField = textBoxResult.mx_internal::getTextField();
+//				textField.defaultTextFormat;
+				
+				beginColumn.text = item.attribute("beginColumn");
+				beginLine.text = item.attribute("beginLine");
+				endColumn.text = item.attribute("endColumn");
+				endLine.text = item.attribute("endLine");
+				
+//				beginIndex = textField.getLineOffset(beginLine-1) + beginColumn-1;
+//				endIndex = textField.getLineOffset(endLine-1) + endColumn;
+//				
+//				textRange.beginIndex = beginIndex;
+//				textRange.endIndex = endIndex;
+//				textRange.color = "red";
+				caculateBeginEndIndex();
+				showBlock();
+				
+				
+			}
+			
+//			private function clear():void{
+//				textRange = new TextRange(textBoxResult,false);
+//				textRange.color = "black";
+//			}
+
+	    ]]>
+	</mx:Script>
+
+	<mx:Text x="10" y="10" text="Result" fontWeight="bold" fontSize="16" height="30" fontFamily="Courier New"/>
+	<mx:HDividedBox x="16" y="40" width="650" height="562" id="hDividedBox">
+		<components1:BlockTextArea  x="161" y="73" width="80%" height="100%" fontSize="14" id="textBoxResult"  verticalScrollPolicy="on" enabled="true"/>
+		
+		<mx:Tree id="xmlTree" width="50%" height="100%" labelField="@label" change="highLight()"/>
+		
+	</mx:HDividedBox>
+	<mx:TextArea x="171" y="10" width="72"  height="22" id="beginIndex"/>
+	<mx:Label x="94" y="11" text="beginIndex" width="69"/>
+	<mx:Label x="256" y="10" text="endIndex" width="69"/>
+	<mx:TextArea x="324" y="9" width="72" height="23" id="endIndex"/>
+	<!--><mx:Button x="516" y="8" label="HighLight" click="showBlock()"/><-->
+	<mx:ColorPicker x="460" y="7" id="colorPicker" selectedColor="#FD0606"/>
+	<mx:Label x="759" y="61" text="beginLine" width="70"/>
+	<mx:TextArea x="857" y="61" width="31" id="beginLine" height="21"/>
+	<mx:Label x="760" y="156" text="endColumn" width="70"/>
+	<mx:TextArea x="857" y="156" width="31" id="endColumn" height="21"/>
+	<mx:Label x="759" y="124" text="endLine" width="70"/>
+	<mx:TextArea x="857" y="124" width="31" id="endLine" height="24"/>
+	<mx:Label x="759" y="93" text="beginColumn" width="81"/>
+	<mx:TextArea x="857" y="93" width="31" id="beginColumn" height="23"/>
+	<mx:TextInput id="xPath" x="759" y="207" width="283"/>
+	<mx:Button x="760" y="251" label="Query" click="query(event)"/>
+	<!--><mx:Button x="760" y="204" label="Caculate" id="caculateButton"/><-->
+	
+</mx:Canvas>

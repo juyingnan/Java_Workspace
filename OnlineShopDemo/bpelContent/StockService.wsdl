@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://cn.edu.pku.ss.stock" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://cn.edu.pku.ss.stock" xmlns:intf="http://cn.edu.pku.ss.stock" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://cn.edu.pku.ss.stock" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="stockInquiry">
+    <complexType>
+     <sequence>
+      <element name="tosterType" type="xsd:string"/>
+      <element name="quantity" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="stockInquiryResponse">
+    <complexType>
+     <sequence>
+      <element name="stockInquiryReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="stockInquiryResponse">
+
+      <wsdl:part element="impl:stockInquiryResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="stockInquiryRequest">
+
+      <wsdl:part element="impl:stockInquiry" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="StockService">
+
+      <wsdl:operation name="stockInquiry">
+
+         <wsdl:input message="impl:stockInquiryRequest" name="stockInquiryRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:stockInquiryResponse" name="stockInquiryResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="StockServiceSoapBinding" type="impl:StockService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="stockInquiry">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="stockInquiryRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="stockInquiryResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="StockServiceService">
+
+      <wsdl:port binding="impl:StockServiceSoapBinding" name="StockService">
+
+         <wsdlsoap:address location="http://localhost:8080/OnlineShop_Services/services/StockService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

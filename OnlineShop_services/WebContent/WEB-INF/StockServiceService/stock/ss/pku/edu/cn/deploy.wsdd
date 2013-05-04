@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from StockServiceService WSDL service -->
+
+  <service name="StockService" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://cn.edu.pku.ss.stock"/>
+      <parameter name="wsdlServiceElement" value="StockServiceService"/>
+      <parameter name="schemaQualified" value="http://cn.edu.pku.ss.stock"/>
+      <parameter name="wsdlServicePort" value="StockService"/>
+      <parameter name="className" value="stock.ss.pku.edu.cn.StockService"/>
+      <parameter name="wsdlPortType" value="StockService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://cn.edu.pku.ss.stock" xmlns:retNS="http://cn.edu.pku.ss.stock" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="stockInquiry" qname="operNS:stockInquiry" returnQName="retNS:stockInquiryReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://cn.edu.pku.ss.stock" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:tosterType" type="tns:string"/>
+        <parameter xmlns:pns="http://cn.edu.pku.ss.stock" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:quantity" type="tns:int"/>
+      </operation>
+      <parameter name="allowedMethods" value="stockInquiry"/>
+
+  </service>
+</deployment>

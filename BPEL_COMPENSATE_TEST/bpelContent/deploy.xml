@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:ss.pku.edu.cn="ss.pku.edu.cn" xmlns:tempuri.org="http://tempuri.org/">
+  <process name="ss.pku.edu.cn:compensate_Test">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="ss.pku.edu.cn:compensate_TestService" port="compensate_TestPort"/>
+    </provide>
+    <invoke partnerLink="client">
+      <service name="ss.pku.edu.cn:compensate_TestServiceCallback" port="compensate_TestPortCallbackPort"/>
+    </invoke>
+    <invoke partnerLink="testPL">
+      <service name="tempuri.org:CableService" port="CableServiceSoap"/>
+    </invoke>
+  </process>
+</deploy>

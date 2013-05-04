@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="ss.oku.edu.cn" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="ss.pku.edu.cn" xmlns:wsdl2="http://tempuri.org/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Client" targetNamespace="ss.oku.edu.cn">
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		TYPE DEFINITION - List of services participating in this BPEL process The 
+		default output of the BPEL designer uses strings as input and output to the 
+		BPEL Process. But you can define or import any XML Schema type and us them 
+		as part of the message types. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<vprop:property name="MyCS" type="xsd:string"/>
+	<vprop:propertyAlias messageType="tns:ClientRequestMessage" part="payload" propertyName="tns:MyCS">
+		<vprop:query><![CDATA[/tns:EventID]]></vprop:query>
+		<vprop:query><![CDATA[/tns:CustomerID]]></vprop:query>
+	</vprop:propertyAlias>
+
+	<vprop:propertyAlias messageType="wsdl:CABLE_OPERATOR_PROCESSResponseMessage" part="CustomerINFO" propertyName="tns:MyCS">
+		<vprop:query><![CDATA[/wsdl:EventID]]></vprop:query>
+		<vprop:query><![CDATA[/wsdl:CustomerID]]></vprop:query>
+	</vprop:propertyAlias>
+
+    <plnk:partnerLinkType name="outputPLT">
+    <plnk:role name="ouyputProvider" portType="wsdl2:OutputServiceSoap"/>
+  </plnk:partnerLinkType>
+    <import location="CABLE_OPERATOR_PROCESSArtifacts.wsdl" namespace="ss.pku.edu.cn"/>
+    <import location="OutputService.wsdl" namespace="http://tempuri.org/"/>
+    <types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="ss.oku.edu.cn">
+
+			<element name="ClientRequest">
+				<complexType>
+					<sequence>
+						<element name="CustomerID" type="string"/>
+						<element name="EventID" type="int"/>
+					</sequence>
+				</complexType>
+			</element>
+
+			<element name="ClientResponse">
+				<complexType>
+					<sequence>
+
+						<element name="CustomerID" type="string"/>
+						<element name="EventID" type="int"/>
+						<element name="result" type="string"/>
+					</sequence>
+				</complexType>
+			</element>
+
+		</schema>
+	</types>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		MESSAGE TYPE DEFINITION - Definition of the message types used as part of 
+		the port type defintions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<message name="ClientRequestMessage">
+		<part element="tns:ClientRequest" name="payload"/>
+	</message>
+
+	<message name="ClientResponseMessage">
+		<part element="tns:ClientResponse" name="payload"/>
+	</message>
+
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		PORT TYPE DEFINITION - A port type groups a set of operations into a logical 
+		service unit. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- portType implemented by the Client BPEL process -->
+
+	<portType name="Client">
+		<operation name="initiate">
+			<input message="tns:ClientRequestMessage"/>
+
+		</operation>
+	</portType>
+
+	<!-- portType implemented by the requester of Client BPEL process for asynchronous 
+		callback purposes -->
+	<portType name="ClientCallback">
+		<operation name="onResult">
+			<input message="tns:ClientResponseMessage"/>
+		</operation>
+	</portType>
+
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		PARTNER LINK TYPE DEFINITION the Client partnerLinkType binds the provider 
+		and requester portType into an asynchronous conversation. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<plnk:partnerLinkType name="Client">
+		<plnk:role name="ClientProvider" portType="tns:Client"/>
+		<plnk:role name="ClientRequester" portType="tns:ClientCallback"/>
+	</plnk:partnerLinkType>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		BINDING DEFINITION - Defines the message format and protocol details for 
+		a web service. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<binding name="ClientBinding" type="tns:Client">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="initiate">
+			<soap:operation soapAction="ss.oku.edu.cn/initiate"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+		</operation>
+	</binding>
+
+	<binding name="ClientCallbackBinding" type="tns:ClientCallback">
+
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="onResult">
+
+			<soap:operation soapAction="ss.oku.edu.cn/onResult"/>
+			<input>
+
+				<soap:body use="literal"/>
+			</input>
+		</operation>
+	</binding>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		SERVICE DEFINITION - A service groups a set of ports into a service unit. 
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<service name="ClientService">
+		<port binding="tns:ClientBinding" name="ClientPort">
+			<soap:address location="http://localhost:8080/ode/processes/Client"/>
+		</port>
+	</service>
+
+	<service name="ClientServiceCallback">
+		<port binding="tns:ClientCallbackBinding" name="ClientPortCallbackPort">
+			<soap:address location="http://localhost:8080/ode/processes/ClientCallback"/>
+		</port>
+	</service>
+</definitions>

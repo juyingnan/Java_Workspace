@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+	xmlns:views="cn.edu.pku.ss.test.*" initialize="initializeTesting();" >
+	 
+	 <mx:Script>  
+        <![CDATA[
+        	import mx.containers.Canvas;
+        	import mx.messaging.AbstractConsumer;
+        	
+        	import mx.events.IndexChangedEvent;
+        	import mx.containers.VBox;
+        	import mx.controls.Alert;
+            import mx.managers.PopUpManager;
+            import mx.core.*;
+            import cn.edu.pku.ss.test.common.*;
+            import cn.edu.pku.ss.test.*;
+            import mx.collections.*;
+              
+	        private var step:int = 0;
+	        private var arr:Array = null;
+	        
+	        [Bindable]
+            public var menuBarCollection:XMLListCollection;
+    
+            private var menubarXML:XMLList =
+                <>
+                    <menuitem label="Help" data="top">
+                        <menuitem label="Online" data="1A"/>
+                        <menuitem label="Download PDF" data="1B"/>
+                    </menuitem>
+                    <menuitem label="About" data="top">
+                        <menuitem label="Report bug"   data="2A"/>
+                        <menuitem type="separator"/>
+                        <menuitem label="About us"   data="2B"/>
+                    </menuitem>
+                </>;
+
+           
+	        
+	        private function initializeTesting():void{
+	        	
+	        	//添加自定义事件的监听  
+				TestingObject.Instance.addEventListener(TestingObject.TESTINGEVENT,testingComplete);
+				TestingObject.Instance.addEventListener(TestingObject.LOADINGEVENT, loadingComplete);
+				TestingObject.Instance.showPop(this);
+	        	//popWindow = PopUpManager.createPopUp(this,PopWorkingIndicator,true);	        	
+	        	TestingObject.Instance.initialize();	        	
+	        	initializeWizard();
+	        	//初始化菜单
+	        	//menuBarCollection = new XMLListCollection(menubarXML);
+
+	        }
+	        
+	        private function testingComplete(e:Event):void{
+	        	TestingObject.Instance.clearPop();
+	        	
+	        	
+	        	
+	        }
+	        
+	        private function loadingComplete(e:Event):void{
+	        	TestingObject.Instance.clearPop();
+	        	
+	        	if(TestingObject.Instance.Session==""){
+	        		Alert.show("Initialize Failed!");	
+	        		Alert.show( TestingObject.Instance.Result);
+	        		viewResult.textBoxResult.text = TestingObject.Instance.Result;
+	        		showView(tabWizard.getChildren().length-1);
+	        		
+	        	}
+	        	
+	        }
+	        
+	        private function initializeWizard():void{
+	        	
+	        	step = 0;
+	        	tabWizard.selectedIndex = 0;
+	        	if(tabWizard!=null)
+	        		arr = tabWizard.getChildren();
+	        	buttonPrevious.visible = false;
+	        	buttonNext.label = "Next";
+	        	if(viewLanguage!=null)viewLanguage.initializeView();
+				if(viewUpload!=null)viewUpload.initializeView();
+				if(viewStrategy!=null)viewStrategy.initializeView();
+				if(viewMethod!=null)viewMethod.initializeView();
+				if(viewResult!=null)viewResult.initializeView();
+	        	
+	        }
+	        
+	        private function showView(viewIndex:int):void{
+	        	if(viewIndex<0){
+	        		Alert.show("Out of range!");
+	        		return;
+	        	} else if(viewIndex>=arr.length-1){
+	        		tabWizard.selectedIndex = 0;
+//					viewStrategy.viewStructN.selected=true
+	        		return;
+	        	}
+				if(viewIndex==4&&viewStrategy.viewStruct.selected==false){
+					viewIndex++;
+				}
+				else if(viewIndex==5&&viewStruct.abstractViewTree.selected==true){
+					viewIndex++;
+				}
+//				else if(viewIndex==6&&viewStruct.flowGraph.selected==true){
+//					Alert.show("333333");
+//					viewIndex++;
+//				}
+				else if(viewIndex==6){
+					if(viewStrategy.viewStruct.selected==false){
+					}
+					else{
+						viewIndex++;
+					}
+						
+				}
+				tabWizard.selectedIndex = viewIndex;
+	        	
+				for(var i:int=0; i<arr.length; i++){
+	        		//var view:Canvas = Canvas(arr[i]);
+	        		//if(i==viewIndex){        			
+	        		//	view.getChildAt(0).visible = true;
+	        		//} else {
+	        		//	view.getChildAt(0).visible = false;
+	        		//}
+	        	}
+	        }
+	        
+	        private function tabWizard_IndexChanged(event:IndexChangedEvent):void{
+	        	       	
+				step = tabWizard.selectedIndex;
+				
+				if(step ==0 ) {
+	        		buttonPrevious.visible =false;
+	        	} else {
+	        		buttonPrevious.visible =true;
+	        	}
+	        	if(step == arr.length-3||step == arr.length-4){
+	        		buttonNext.label = "Finish";
+	        	}
+	        	else if(step == arr.length-1||step == arr.length-2){
+	        		buttonNext.label = "Again";
+	        	} else {
+	        		buttonNext.label = "Next";
+	        	}
+	        	
+	        	//var view:VBox = VBox(tabWizard.getChildAt(tabWizard.selectedIndex)); 
+	        	//viewMethod
+	        	if(step==5){
+	        		viewMethod.activate();
+	        	} else if(step==6){
+	        		//viewResult
+	        		viewResult.activate();
+	        	}
+				else if(step==7){
+					flowGraph.activate();
+				}
+	        	
+	        }
+	        
+	        private function methodSkipEvent(e:Event):void {
+	        	
+				//buttonNext_Click();
+			}
+	        
+	        private function buttonPrevious_Click():void {
+				step--;
+				showView(step);
+			}
+	        
+	        private function buttonNext_Click():void {	        	
+	        	step++;
+	        	showView(step);  
+	        	
+	        	
+			}
+			
+	        private function buttonHelp_Click():void {
+				PopUpManager.createPopUp(this,HelpView,false);
+			}
+			
+			private function menu_Click(e:Event):void{
+				//var s:String = e.target.data.menuitem.label;
+				//Alert.show(s);
+				//if(s=="1A"){
+				//	Alert.show(e.target.data.toString());
+				//}
+				
+			}
+        
+        ]]>
+	</mx:Script>
+	 
+    <mx:Style source="assets/css/Main.css" />	
+    <!--mx:MenuBar top="-1" right="0" left="0" dataProvider="{ menuBarCollection }" labelField="@label" click="menu_Click(event)"/-->
+	<mx:Panel width="95%" height="90%" layout="horizontal" title="White-Box Testing Tool" horizontalCenter="0" verticalCenter="0">
+		<mx:TabNavigator id="tabWizard" x="0" y="0" width="100%" height="100%" change="tabWizard_IndexChanged(event);">
+			<views:Welcome id="viewWelcome" label="Welcome" width="100%" height="100%"/>
+			<views:LanguageView id="viewLanguage" label="Code Language" width="100%" height="100%"/>
+			<views:UploadView id="viewUpload" label="Upload" width="100%" height="100%"/>
+			<views:StrategyView id="viewStrategy" label="Strategy" width="100%" height="100%"/>
+			<views:StructView id="viewStruct" label="Struct View" width="100%" height="100%"/>
+			<views:MethodSelectView id="viewMethod" label="Method" width="100%" height="100%" SkipEvent="methodSkipEvent(event);"/>
+			<views:ResultView id="viewResult" label="Result(s)" width="100%" height="100%"/>
+			<views:FlowGraph id="flowGraph" label="FlowGraph" width="100%" height="100%"/>
+		</mx:TabNavigator>
+		<mx:ControlBar>
+			<mx:Label text="Ver 0.0.1" width="100%"/>
+			<mx:Button id="buttonPrevious" label="Previous" width="130" height="35" click="buttonPrevious_Click()"/>
+			<mx:Button id="buttonNext" label="Next" width="130" height="35" click="buttonNext_Click()"/>
+			<mx:Button id="buttonHelp" label="Help" width="130" height="35" click="buttonHelp_Click()"/>
+		</mx:ControlBar>
+	</mx:Panel>
+</mx:Application>

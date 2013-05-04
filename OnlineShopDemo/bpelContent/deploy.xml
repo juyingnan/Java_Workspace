@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:cn.edu.pku.ss.bank="http://cn.edu.pku.ss.bank" xmlns:cn.edu.pku.ss.order="http://cn.edu.pku.ss.order" xmlns:cn.edu.pku.ss.stock="http://cn.edu.pku.ss.stock" xmlns:ss.pku.edu.cn="ss.pku.edu.cn">
+  <process name="ss.pku.edu.cn:OnlineShop">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="ss.pku.edu.cn:OnlineShopService" port="OnlineShopPort"/>
+    </provide>
+    <invoke partnerLink="bankPL">
+      <service name="cn.edu.pku.ss.bank:BankServiceService" port="BankService"/>
+    </invoke>
+    <invoke partnerLink="IDgeneratorPL">
+      <service name="cn.edu.pku.ss.order:OrderIDGeneratorService" port="OrderIDGenerator"/>
+    </invoke>
+    <invoke partnerLink="stockPL">
+      <service name="cn.edu.pku.ss.stock:StockServiceService" port="StockService"/>
+    </invoke>
+  </process>
+</deploy>

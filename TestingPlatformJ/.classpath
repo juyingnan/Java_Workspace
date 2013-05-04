@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="tests"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="lib/tools.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/TestingPlatform/lib/jgap.jar" sourcepath="C:/Users/shootsoft/Desktop/Temp/src">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="/TestingPlatform/lib/jdom.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/TestingPlatform"/>
+	<classpathentry kind="lib" path="lib/javaparser-1.0.8.jar" sourcepath="D:/Software/Java/javaparser-1.0.8-src"/>
+	<classpathentry kind="lib" path="/TWeb/WebContent/WEB-INF/lib/bsh-core-2.0b4.jar"/>
+	<classpathentry kind="lib" path="/TWeb/WebContent/WEB-INF/lib/cglib-2.1_3-src.jar"/>
+	<classpathentry kind="lib" path="/TWeb/WebContent/WEB-INF/lib/cglib-nodep-2.1_3.jar"/>
+	<classpathentry kind="lib" path="/TWeb/WebContent/WEB-INF/lib/hamcrest-core-1.1.jar"/>
+	<classpathentry kind="lib" path="/TWeb/WebContent/WEB-INF/lib/hamcrest-library-1.1.jar"/>
+	<classpathentry kind="lib" path="/TWeb/WebContent/WEB-INF/lib/imock.jar"/>
+	<classpathentry kind="lib" path="/TWeb/WebContent/WEB-INF/lib/jmock-2.5.1.jar"/>
+	<classpathentry kind="lib" path="/TWeb/WebContent/WEB-INF/lib/jmock-junit3-2.5.1.jar"/>
+	<classpathentry kind="lib" path="/TWeb/WebContent/WEB-INF/lib/jmock-junit4-2.5.1.jar"/>
+	<classpathentry kind="lib" path="/TWeb/WebContent/WEB-INF/lib/jmock-legacy-2.5.1.jar"/>
+	<classpathentry kind="lib" path="/TWeb/WebContent/WEB-INF/lib/jmock-script-2.5.1.jar"/>
+	<classpathentry kind="lib" path="/TWeb/WebContent/WEB-INF/lib/objenesis-1.0.jar"/>
+	<classpathentry kind="lib" path="/TWeb/WebContent/WEB-INF/lib/servlet-api.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

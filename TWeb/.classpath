@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="tests"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/TestingPlatform"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/TestingPlatformC"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/TestingPlatformJ"/>
+	<classpathentry kind="var" path="ECLIPSE_HOME"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/bsh-core-2.0b4.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cglib-2.1_3-src.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cglib-nodep-2.1_3.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/hamcrest-core-1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/hamcrest-library-1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/imock.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jmock-2.5.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jmock-junit3-2.5.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jmock-junit4-2.5.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jmock-legacy-2.5.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jmock-script-2.5.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/objenesis-1.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/servlet-api.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

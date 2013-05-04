@@ -1,0 +1,237 @@
+package cn.edu.pku.ss.test.cfg.graph;
+
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Stack;
+
+import cn.edu.pku.ss.test.util.Log;
+
+public class CopyOfFlowGraph extends ArrayList<GraphNode> {
+
+	private GraphPathArray 	paths = new GraphPathArray();
+	
+	public GraphNode getById(int id){
+		for(int i=0; i < this.size(); i++){
+			if(this.get(i).getId() == id){
+				return this.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public GraphNode getLast2(){
+		if(this.size()>=2)
+			return getById(this.size()-2);
+		else return null;
+	}
+	
+	public GraphNode getLast(){
+		if(this.size()>0){
+			return get(this.size()-1);
+		} else {
+			return null;
+		}		
+	}
+	
+	public void setLastNext(int id){
+		
+		for(int i = this.size()-1; i>=0; i--){
+			if(this.get(i).isEnd() || this.get(i).isContinue()){
+				continue;
+			} else {				
+				this.get(i).setNext(id);
+				//Debug.println(i + "**" + id);
+				break;
+			}
+		}
+	}
+	
+
+	public void add(int nodeId, int lineNum){
+		GraphNode gn = new GraphNode();
+		gn.setId(nodeId);
+		gn.setLineNum(lineNum);
+		this.add(gn);
+	}
+	
+	public void add(int nodeId, int firstId, int lineNum){
+		GraphNode gn = new GraphNode();
+		gn.setId(nodeId);
+		gn.setLineNum(lineNum);
+		gn.setFirstId(firstId);
+		this.add(gn);
+	}
+	
+	public void add(int nodeId, boolean isLoop, int lineNum){
+		GraphNode gn = new GraphNode();
+		gn.setLoop(isLoop);
+		gn.setId(nodeId);
+		gn.setLineNum(lineNum);
+		this.add(gn);
+	}
+	
+	
+
+	
+	public GraphPathArray getPaths(){
+		return paths;
+	}
+
+
+	public GraphPathArray generatPaths() {
+		paths = new GraphPathArray();	
+		if(this.size()>0){
+			paths.add(new GraphPath());
+			visit(0, 0, true);			
+		}
+		for(int i=0;i<paths.size();i++){
+			GraphPath gp = paths.get(i);
+			int lastNode = gp.get(gp.size()-1);
+			if(!this.getById(lastNode).isEnd()){
+				paths.remove(i);
+				i--;
+			} else {
+				//检查有没有冗余
+//				 if(h.containsKey(gp.toString())){
+//			    	 Log.Debug("Error!!!!!");
+//			     } else {
+//			    	 h.put(gp.toString(), "");
+//			     }
+			}
+		}
+		Log.Debug(paths.size());
+		return paths;	
+	}
+	
+	@Override
+	public String toString(){
+		StringBuilder buff = new StringBuilder();
+		for(int i = 0; i < this.size(); i++){
+			buff.append(this.get(i).toString() + "\r\n");			
+		}
+		return buff.toString();
+	}
+	
+	protected void visit(int pathId, int nodeId, boolean all){
+		//Log.Debug("--");
+		//Log.Debug(paths);
+		GraphNode node = this.getById(nodeId);
+		GraphPath path = paths.get(pathId);	
+		//if(path.check(node.getId())){
+			path.add(node.getId());
+			if(node.isLoopEnd()){
+				path.getLoopHistory().put(node.getLoopId(), node.getId());
+			}
+		//} else return;
+		
+		if(!node.isEnd()){
+			if(node.getSecondId()!= GraphNode.UNACCESSABLE){				
+				if(path.check(node.getSecondId())){
+					GraphPath right = path.clone();					
+					//Debug.println(right + "right" + right.getLoopEnds().toString());				
+					paths.add(right);			
+					visit(paths.size()-1, node.getSecondId(), all);
+				}						
+			}
+			
+			if(path.check(node.getFirstId())){
+				//访问下一级节点
+				visit(pathId, node.getFirstId(), all);
+			}
+		} 
+		
+	
+	}
+	
+	protected void visit1(int pathId, int nodeId, boolean all){
+		GraphNode node = this.getById(nodeId);
+		GraphPath path = paths.get(pathId);		
+		if(!node.isEnd()){
+			//visitOthers(pathId, nodeId, all);
+			path.add(node.getId());
+			//如果只有一个下一级节点
+			if(node.getSecondId()<0){
+				if(node.isContinue()){					
+					//Debug.println(node.getFirstId() + " : " + path.getLoops().pop() );
+					int id = path.getLoops().pop();
+					//访问循环的第一个节点
+					path.add(id);
+					//移除一个循环
+					path.removeLoop(id);
+					int next = this.getById(id).getSecondId();
+					//访问下一级节点
+					visit(pathId, next, all);
+					
+				} else {
+					//首先检查下一个节点是不是当前路径中某一条循环的结束节点
+					while(path.getLoopEnds().containsValue(node.getFirstId())){
+						//Debug.println("xxx:" + gp + "===" + gp.getLoopEnds());
+						
+						//是某个循环的结束点
+						int id = path.getLoops().pop();
+						//访问循环的第一个节点
+						path.add(id);
+						//移除一个循环
+						path.removeLoop(id);
+					}
+					//访问下一级节点
+					visit(pathId, node.getFirstId(), all);
+					//Debug.println(path.toString());
+					//Debug.println(pathId + "\t" + node.getId() + "\t" + node.getFirstId());
+				}
+			}
+			else{
+				
+				GraphPath right = path.clone();					
+				//Debug.println(right + "right" + right.getLoopEnds().toString());				
+				paths.add(right);			
+				visit(paths.size()-1, node.getSecondId(), all);
+				
+				if(node.isLoop()){
+					path.getLoopEnds().put(node.getId(), node.getSecondId());
+					path.getLoops().push(node.getId());
+				}
+				
+				visit(pathId, node.getFirstId(), all);
+			}
+		} else {
+			//检查是否存在没有完成循环的节点
+			//首先检查下一个节点是不是当前路径中某一条循环的结束节点
+			while(path.getLoopEnds().containsValue(nodeId)){
+				//Debug.println("xxx:" + gp + "===" + gp.getLoopEnds());
+				
+				//是某个循环的结束点
+				int id = path.getLoops().pop();
+				//访问循环的第一个节点
+				path.add(id);
+				//移除一个循环
+				path.removeLoop(id);
+			}
+			path.add(node.getId());
+		}
+		
+		
+	}
+
+	protected void visitOthers1(int pathId, int nodeId, boolean all){
+		GraphNode node = this.getById(nodeId);
+		GraphPath path = paths.get(pathId);		
+		
+		for(int i=0; i< node.getOthers().size(); i++){
+			boolean n = node.getOthers().get(i).getValue();
+			if(!n && !all){
+				continue;
+			}
+			if(path.isNecessary() && !n){
+				path.setNecessary(false);
+			}
+			GraphPath o = path.clone();
+			paths.add(o);			
+			visit(paths.size()-1, node.getOthers().get(i).getId(), all);
+		}
+	}
+
+
+
+	
+}

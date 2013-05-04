@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="700" height="300">
+	<mx:Script>  	
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			
+			private function selectionChangedAST(event:Event):void{
+				TestingObject.Instance.setStrategyAST();
+			}
+			
+			private function selectionChangedFlowGraph(event:Event):void{
+				TestingObject.Instance.setStrategyFlowGraph();
+			}
+			
+		]]>
+	</mx:Script>
+	
+	
+	<mx:Text x="139" y="36" text="Please select a struct view" fontWeight="bold" fontSize="16" fontFamily="Courier New"/>
+	<mx:RadioButtonGroup id="radiogroup1"/>
+	<mx:RadioButton id="abstractViewTree" x="153" y="90" label="View Abstract View Tree" groupName="radiogroup1" selected="true" fontWeight="bold" fontSize="14"  change="selectionChangedAST(event);"/>
+	<mx:RadioButton id="flowGraph" x="153" y="142" label="View Flow Graph" groupName="radiogroup1" fontWeight="bold" fontSize="14" change="selectionChangedFlowGraph(event)"/>
+</mx:Canvas>

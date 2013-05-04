@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="600" height="300">
+	<mx:Script>  	
+		<![CDATA[
+			public function initializeView():void{
+				if(radioJava!=null)radioJava.selected = true;
+			}
+           
+			private function selectionChangedCpp(event:Event):void{
+            	TestingObject.Instance.setSourceType(0);    
+            }  
+		
+    		private function selectionChangedJava(event:Event):void{
+            	TestingObject.Instance.setSourceType(1); 
+            }
+            
+	    ]]>
+	</mx:Script>
+	<mx:Text x="49" y="49" text="Please select the language type of the source file" fontWeight="bold" fontSize="16" height="30" fontFamily="Courier New"/>
+	<mx:RadioButton id="radioCpp" x="147" y="94" label="C++" fontSize="14" fontWeight="bold"
+		 change="selectionChangedCpp(event);" selected="true"/>
+	<mx:RadioButton id="radioJava" x="147" y="142" label="Java" fontSize="14" fontWeight="bold" selected="false"
+		 change="selectionChangedJava(event);"/>
+	
+</mx:Canvas>

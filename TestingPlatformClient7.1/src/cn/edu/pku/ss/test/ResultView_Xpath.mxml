@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="730" height="300" xmlns:test="cn.edu.pku.ss.test.*" xmlns:s="library://ns.adobe.com/flex/spark">
+	<mx:Script>  	
+		<![CDATA[
+			import flash.utils.flash_proxy;
+			
+			import flashx.textLayout.elements.TextFlow;
+			import flashx.textLayout.tlf_internal;
+			
+			import memorphic.*;
+			import memorphic.xpath.XPathQuery;
+			
+			import mx.collections.XMLListCollection;
+			import mx.controls.Alert;
+			import mx.controls.textClasses.TextRange;
+			import mx.core.IUITextField;
+			import mx.core.mx_internal;
+			import mx.events.ItemClickEvent;
+			import mx.events.TreeEvent;
+			
+			
+			
+			private var treeXml:XML;
+			
+			private var textRange:TextRange;
+			
+			private var beginLine:int;
+			private var beginColumn:int;
+			private var endLine:int;
+			private var endColumn:int;
+			private var beginIndex:int;
+			private var endIndex:int;
+			private var textField:TextField;
+			
+		
+	    	public function initializeView():void{
+	    		if(textBoxResult!=null)textBoxResult.text = "";
+	    	}    
+	    	
+	    	public function activate():void{
+	    		//注册一个测试结束事件
+	    		TestingObject.Instance.addEventListener(TestingObject.TESTINGEVENT, testingComplete);
+	    		TestingObject.Instance.doTesting();
+	    		TestingObject.Instance.showPop(this);
+	    	}   
+	    	
+	    	public function testingComplete(e:Event):void{
+	    		//解除测试结束事件
+	    		TestingObject.Instance.removeEventListener(TestingObject.TESTINGEVENT, testingComplete); 
+				var pattern1:RegExp = new RegExp("\\r","g");
+				var pattern2:RegExp = new RegExp("\\t","g");
+	    		textBoxResult.text = TestingObject.Instance.getCode().replace(pattern1,"").replace(pattern2,"        ");
+				treeXml = new XML(TestingObject.Instance.Result);
+				getTree.dataProvider = treeXml;
+			}
+			
+			private function show(item:XML):String{
+				return item.localName();
+			}
+			
+			
+			private function change(event:Event):void {
+				var item:XML = event.target.selectedItem;
+				
+				
+				clear();
+				display(item);
+				
+			} 
+			
+			private function display(item:XML):void{
+				textField = textBoxResult.mx_internal::getTextField();
+				textField.defaultTextFormat;
+				
+				beginColumn = item.attribute("beginColumn");
+				beginLine = item.attribute("beginLine");
+				endColumn = item.attribute("endColumn");
+				endLine = item.attribute("endLine");
+				
+				beginIndex = textField.getLineOffset(beginLine-1) + beginColumn-1;
+				endIndex = textField.getLineOffset(endLine-1) + endColumn;
+				
+				textRange.beginIndex = beginIndex;
+				textRange.endIndex = endIndex;
+				textRange.color = "red";
+			
+			
+			}
+			
+			private function clear():void{
+			 	textRange = new TextRange(textBoxResult,false);
+				textRange.color = "black";
+			}
+			
+			private function query(event:Event):void{
+			    var expression:String = xPath.text;
+				var query:XPathQuery = new XPathQuery(expression);
+				var result:XMLList = query.exec(treeXml);
+				
+				clear();
+				for each(var item:XML in result){
+					display(item);
+				}
+			
+			}
+			
+			
+	    ]]>
+	</mx:Script>
+
+	<mx:Text x="10" y="10" text="Result" fontWeight="bold" fontSize="16" height="30" fontFamily="Courier New"/>
+	<mx:HDividedBox id="hdivbox" width="100%" height="100%">
+		<mx:VBox width="100%" height="100%">
+			<mx:TextArea id="textBoxResult" width="100%" height="100%">
+				
+			</mx:TextArea>
+
+		</mx:VBox>
+		
+		
+			<mx:Tree id="getTree" labelFunction="show" width="100%" height="100%" itemClick="change(event)">
+
+			</mx:Tree>
+		
+			<mx:TextInput id="xPath">
+				
+			</mx:TextInput>
+		
+			<mx:Button click="query(event)"/>
+
+	</mx:HDividedBox>
+
+
+</mx:Canvas>

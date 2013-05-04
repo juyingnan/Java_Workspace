@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="750" height="456" xmlns:components="cn.edu.pku.ss.test.com.components.*">
+	<mx:Script>  	
+		<![CDATA[
+			import cn.edu.pku.ss.test.common.PopWorkingIndicator;
+			
+			import mx.controls.Alert;
+			import mx.core.*;
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+			
+			private var file:FileReference = null;
+			private var pop:IFlexDisplayObject = null;
+			private var originalText:String;
+			
+	    	public function initializeView():void{
+	  			if(textBoxSource!=null)textBoxSource.text = "";
+    		
+	    	}    
+	    	
+	    	private function buttonUpload_Click(event:Event):void {  
+//	    		var fileFilter:FileFilter = null;
+//	            if(TestingObject.Instance.getSourceType() == TestingObject.JAVA){
+//	            	fileFilter = new FileFilter("Java Source File","*.java");
+//	            } else {
+//	            	fileFilter = new FileFilter("C++ Source File","*.cpp","*.cc");
+//	            }                
+//				file = new FileReference();
+//				file.addEventListener(Event.SELECT, onFileUpload);
+//				file.addEventListener(Event.COMPLETE, onFilecompleteHandle);
+				onFileUpload(event);
+				//file.addEventListener(ProgressEvent.PROGRESS, onFileProgress);
+	
+//				file.browse([fileFilter]);
+	    	 	
+            	
+            }    
+			
+			private function onFileSelect(e: Event): void{
+				pathText.text = file.name;
+			}
+            
+            private function onFileUpload(e: Event): void{
+				Alert.show("Upload " + file.name + " (Total "+Math.round(file.size)+" byte)?",
+						"Confirm Upload",
+						Alert.YES|Alert.NO,
+						null,
+						proceedWithUpload);
+			}
+            
+            private function proceedWithUpload(e: CloseEvent): void{
+				if (e.detail == Alert.YES){		
+					TestingObject.Instance.FileName = file.name;
+					var request: URLRequest = new URLRequest(TestingObject.Instance.UploadUrl);
+					try {
+						file.upload(request,"Filedata" + TestingObject.Instance.Session);
+						pop = PopUpManager.createPopUp(this,PopWorkingIndicator,true);
+						onFilecompleteHandle(e);
+					} catch (error:Error) {
+						trace("Upload Failed");
+						Alert.show("Upload Fail");
+					}
+				
+				}
+			}
+            
+                        
+            private function onFilecompleteHandle(event:Event):void{     
+				try{
+	            	var urlLoader:URLLoader = new URLLoader();
+	      			urlLoader.addEventListener(Event.COMPLETE, handleURLLoaderCompleted);
+	     			urlLoader.load(new URLRequest(TestingObject.Instance.UploadUrl + "?ViewCode=" + TestingObject.Instance.Session));
+				}catch(error:Error){
+					Alert.show("Load Fail");
+				}
+				
+			}  
+			
+             private function handleURLLoaderCompleted(event:Event):void {
+		        var loader:URLLoader = event.target as URLLoader;
+		        TestingObject.Instance.setCode(loader.data);
+		        textBoxSource.text =  loader.data;
+//				textBoxSource.addEventListener(Event.COMPLETE,addLine);
+//				textBoxSource.addLineInfo();
+				
+//				var pattern1:RegExp = new RegExp("\\n","g");
+//				var pattern2:RegExp = new RegExp("\\t","g");
+//				var text:String = TestingObject.Instance.getCode();
+//				text = text.replace(pattern2,"   1     ");
+//				text = text.replace(pattern1,"3");
+//				textBoxSource.text = text;
+				originalText = textBoxSource.text;
+				showLine.label = "Show Line";
+//				Alert.show("Session:"+TestingObject.Instance.Session);
+		        if(pop!=null){
+		        	PopUpManager.removePopUp(pop);
+		        }
+				
+	    	}
+	    	
+			private function onSourceChange(event:Event):void {
+		        TestingObject.Instance.setCode(textBoxSource.text);
+				//Alert.show(TestingObject.Instance.Code);
+	    	}
+			
+
+			protected function buttonBrowser_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				var fileFilter:FileFilter = null;
+				if(TestingObject.Instance.getSourceType() == TestingObject.JAVA){
+					fileFilter = new FileFilter("Java Source File","*.java");
+				} else {
+					fileFilter = new FileFilter("C++ Source File","*.cpp","*.cc");
+//					fileFilter = new FileFilter("Java Source File","*.java");
+				}                
+				file = new FileReference();
+				
+				file.browse([fileFilter]);
+				file.addEventListener(Event.SELECT, onFileSelect);
+			}
+
+
+			protected function buttonShowLine_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+//				var originalText:String;
+//				var addedLineText:String;
+				
+//				originalText = textBoxSource.text;
+				if(showLine.label == "Show Line")
+				{
+					textBoxSource.addLineInfo();
+					showLine.label = "Hide Line";
+				}
+				else if(showLine.label == "Hide Line")
+				{
+					textBoxSource.text = originalText;
+					showLine.label = "Show Line";
+				}
+				
+			}
+			
+//			private function addLine():void
+//			{
+//				textBoxSource.addLineInfo();
+//			}
+
+	    ]]>
+	</mx:Script>
+	<mx:Button id="buttonUpload" x="435" y="31" label="Upload" width="67" height="24" fontSize="12" click="buttonUpload_Click(event)"/>
+	<components:BlockTextArea x="122" y="82" width="580" height="80%" fontSize="14" id="textBoxSource" change="onSourceChange(event);" editable="false"/>
+	<!--><mx:TextArea x="149" y="70" width="438" height="80%" fontSize="14" id="textBoxSource" change="onSourceChange(event);" editable="false"/><-->
+	<mx:Text x="122" y="0" text="Please upload a target source file:" fontWeight="bold" fontSize="16" height="30" fontFamily="Courier New"/>
+	<mx:TextArea x="142" y="32" height="21" id="pathText" borderColor="black" fontSize="14"/>
+	<mx:Button x="335" y="31" label="Browse" height="24" click="buttonBrowser_clickHandler(event)"/>
+	<mx:Button id="showLine" x="571" y="33" label="Show Line" click="buttonShowLine_clickHandler(event)"/>
+	<!--mx:ProgressBar id="progressBarUpload" x="10" y="78" width="94"/-->
+	
+</mx:Canvas>

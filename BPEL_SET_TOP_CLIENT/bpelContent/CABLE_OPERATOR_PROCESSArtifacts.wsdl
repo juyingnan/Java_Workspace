@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:p="http://www.w3.org/2001/XMLSchema" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="ss.pku.edu.cn"
+	xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://tempuri.org/"
+	xmlns:wsdl1="http://cn.edu.pku.ss.bank" name="CABLE_OPERATOR_PROCESS"
+	targetNamespace="ss.pku.edu.cn" xmlns:wsdl2="ss.oku.edu.cn">
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		TYPE DEFINITION - List of services participating in this BPEL process The 
+		default output of the BPEL designer uses strings as input and output to the 
+		BPEL Process. But you can define or import any XML Schema type and us them 
+		as part of the message types. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<plnk:partnerLinkType name="verificationPLT">
+		<plnk:role name="VerificationProvider" portType="wsdl:CableServiceSoap" />
+	</plnk:partnerLinkType>
+	<plnk:partnerLinkType name="bankPLT">
+		<plnk:role name="bankProvider" portType="wsdl1:BankService" />
+	</plnk:partnerLinkType>
+	<vprop:property name="MyCS" type="p:string" />
+	<vprop:propertyAlias messageType="tns:CABLE_OPERATOR_PROCESSRequestMessage"
+		part="CustomerINFO" propertyName="tns:MyCS">
+		<vprop:query><![CDATA[/tns:EventID]]></vprop:query>
+		<vprop:query><![CDATA[/tns:CustomerID]]></vprop:query>
+	</vprop:propertyAlias>
+
+	<vprop:propertyAlias messageType="tns:CABLE_OPERATOR_PROCESSResponseMessage"
+		part="CustomerINFO" propertyName="tns:MyCS">
+		<vprop:query><![CDATA[/tns:EventID]]></vprop:query>
+		<vprop:query><![CDATA[/tns:CustomerID]]></vprop:query>
+	</vprop:propertyAlias>
+	<import location="CableService.wsdl" namespace="http://tempuri.org/" />
+	<import location="BankService.wsdl" namespace="http://cn.edu.pku.ss.bank" />
+	<types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			attributeFormDefault="unqualified" elementFormDefault="qualified"
+			targetNamespace="ss.pku.edu.cn">
+
+			<element name="CABLE_OPERATOR_PROCESSRequest">
+				<complexType>
+					<sequence>
+						<element name="CustomerID" type="string" />
+						<element name="EventID" type="int" />
+					</sequence>
+				</complexType>
+			</element>
+
+			<element name="CABLE_OPERATOR_PROCESSResponse">
+				<complexType>
+					<sequence>
+						<element name="CustomerID" type="string" />
+						<element name="EventID" type="int" />
+						<element name="Result" type="string" />
+					</sequence>
+				</complexType>
+			</element>
+
+		</schema>
+	</types>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		MESSAGE TYPE DEFINITION - Definition of the message types used as part of 
+		the port type defintions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<message name="CABLE_OPERATOR_PROCESSRequestMessage">
+		<part element="tns:CABLE_OPERATOR_PROCESSRequest" name="CustomerINFO" />
+
+	</message>
+
+	<message name="CABLE_OPERATOR_PROCESSResponseMessage">
+		<part element="tns:CABLE_OPERATOR_PROCESSResponse" name="CustomerINFO" />
+
+
+	</message>
+
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		PORT TYPE DEFINITION - A port type groups a set of operations into a logical 
+		service unit. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- portType implemented by the CABLE_OPERATOR_PROCESS BPEL process -->
+	<portType name="CABLE_OPERATOR_PROCESS">
+		<operation name="initiate">
+			<input message="tns:CABLE_OPERATOR_PROCESSRequestMessage" />
+		</operation>
+	</portType>
+
+	<!-- portType implemented by the requester of CABLE_OPERATOR_PROCESS BPEL 
+		process for asynchronous callback purposes -->
+	<portType name="CABLE_OPERATOR_PROCESSCallback">
+		<operation name="onResult">
+			<input message="tns:CABLE_OPERATOR_PROCESSResponseMessage" />
+		</operation>
+	</portType>
+
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		PARTNER LINK TYPE DEFINITION the CABLE_OPERATOR_PROCESS partnerLinkType binds 
+		the provider and requester portType into an asynchronous conversation. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<plnk:partnerLinkType name="CABLE_OPERATOR_PROCESS">
+		<plnk:role name="CABLE_OPERATOR_PROCESSProvider" portType="tns:CABLE_OPERATOR_PROCESS" />
+		<plnk:role name="CABLE_OPERATOR_PROCESSRequester" portType="tns:CABLE_OPERATOR_PROCESSCallback" />
+	</plnk:partnerLinkType>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		BINDING DEFINITION - Defines the message format and protocol details for 
+		a web service. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<binding name="CABLE_OPERATOR_PROCESSBinding" type="tns:CABLE_OPERATOR_PROCESS">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="initiate">
+			<soap:operation soapAction="ss.pku.edu.cn/initiate" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+		</operation>
+	</binding>
+
+	<binding name="CABLE_OPERATOR_PROCESSCallbackBinding" type="tns:CABLE_OPERATOR_PROCESSCallback">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="onResult">
+			<soap:operation soapAction="ss.pku.edu.cn/onResult" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+		</operation>
+	</binding>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		SERVICE DEFINITION - A service groups a set of ports into a service unit. 
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<service name="CABLE_OPERATOR_PROCESSService">
+		<port binding="tns:CABLE_OPERATOR_PROCESSBinding" name="CABLE_OPERATOR_PROCESSPort">
+			<soap:address
+				location="http://localhost:8080/ode/processes/CABLE_OPERATOR_PROCESS" />
+		</port>
+	</service>
+
+	<service name="CABLE_OPERATOR_PROCESSServiceCallback">
+		<port binding="tns:CABLE_OPERATOR_PROCESSCallbackBinding" name="CABLE_OPERATOR_PROCESSPortCallbackPort">
+			<soap:address
+				location="http://localhost:8080/ode/processes/CABLE_OPERATOR_PROCESSCallback" />
+		</port>
+	</service>
+</definitions>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:ss.oku.edu.cn="ss.oku.edu.cn" xmlns:ss.pku.edu.cn="ss.pku.edu.cn" xmlns:tempuri.org="http://tempuri.org/">
+  <process name="ss.oku.edu.cn:Client">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="ss.oku.edu.cn:ClientService" port="ClientPort"/>
+    </provide>
+    <provide partnerLink="operator">
+      <service name="ss.pku.edu.cn:CABLE_OPERATOR_PROCESSServiceCallback" port="CABLE_OPERATOR_PROCESSPortCallbackPort"/>
+    </provide>
+    <invoke partnerLink="client">
+      <service name="ss.oku.edu.cn:ClientServiceCallback" port="ClientPortCallbackPort"/>
+    </invoke>
+    <invoke partnerLink="operator">
+      <service name="ss.pku.edu.cn:CABLE_OPERATOR_PROCESSService" port="CABLE_OPERATOR_PROCESSPort"/>
+    </invoke>
+    <invoke partnerLink="output">
+      <service name="tempuri.org:OutputService" port="OutputServiceSoap"/>
+    </invoke>
+  </process>
+</deploy>

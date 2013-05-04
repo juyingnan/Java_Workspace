@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://cn.edu.pku.ss.order" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://cn.edu.pku.ss.order" xmlns:intf="http://cn.edu.pku.ss.order" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://cn.edu.pku.ss.order" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="orderIDGenerator">
+    <complexType>
+     <sequence>
+      <element name="customerID" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="orderIDGeneratorResponse">
+    <complexType>
+     <sequence>
+      <element name="orderIDGeneratorReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="orderIDGeneratorRequest">
+
+      <wsdl:part element="impl:orderIDGenerator" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="orderIDGeneratorResponse">
+
+      <wsdl:part element="impl:orderIDGeneratorResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="OrderIDGenerator">
+
+      <wsdl:operation name="orderIDGenerator">
+
+         <wsdl:input message="impl:orderIDGeneratorRequest" name="orderIDGeneratorRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:orderIDGeneratorResponse" name="orderIDGeneratorResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="OrderIDGeneratorSoapBinding" type="impl:OrderIDGenerator">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="orderIDGenerator">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="orderIDGeneratorRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="orderIDGeneratorResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="OrderIDGeneratorService">
+
+      <wsdl:port binding="impl:OrderIDGeneratorSoapBinding" name="OrderIDGenerator">
+
+         <wsdlsoap:address location="http://localhost:8080/OnlineShop_Services/services/OrderIDGenerator"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sca:composite xmlns:sca="http://www.osoa.org/xmlns/sca/1.0" xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.0" name="Restaurant" targetNamespace="http://eclipse.org/SCA_Restaurant_1.x/src/Restaurant">
+  <sca:component name="RestaurantServiceComponent">
+    <sca:implementation.java class="restaurant.lib.RestaurantServiceImpl"/>
+    <sca:service name="RestaurantService">
+      <sca:interface.java interface="restaurant.api.RestaurantService"/>
+    </sca:service>
+    <sca:reference name="billService">
+      <sca:interface.java interface="restaurant.api.BillService"/>
+    </sca:reference>
+    <sca:reference name="menuService">
+      <sca:interface.java interface="restaurant.api.MenuService"/>
+    </sca:reference>
+  </sca:component>
+  <sca:component name="BillServiceComponent">
+    <sca:implementation.java class="restaurant.lib.BillServiceImpl"/>
+    <sca:service name="BillService">
+      <sca:interface.java interface="restaurant.api.BillService"/>
+    </sca:service>
+    <sca:reference name="vatService">
+      <sca:interface.java interface="restaurant.api.VatService"/>
+    </sca:reference>
+    <sca:reference name="tipService">
+      <sca:interface.java interface="restaurant.api.TipService"/>
+    </sca:reference>
+  </sca:component>
+  <sca:component name="VatServiceComponent">
+    <sca:implementation.java class="restaurant.lib.VatServiceImpl"/>
+    <sca:service name="VatService">
+      <sca:interface.java interface="restaurant.api.VatService"/>
+    </sca:service>
+  </sca:component>
+  <sca:component name="MenuServiceComponent">
+    <sca:implementation.java class="restaurant.lib.MenuServiceImpl"/>
+    <sca:service name="MenuService">
+      <sca:interface.java interface="restaurant.api.MenuService"/>
+    </sca:service>
+  </sca:component>
+  <sca:component name="TipServiceComponent">
+    <sca:implementation.java class="restaurant.lib.TipServiceImpl"/>
+    <sca:service name="TipService">
+      <sca:interface.java interface="restaurant.api.TipService"/>
+    </sca:service>
+    <sca:property name="tipRate">0</sca:property>
+  </sca:component>
+  <sca:wire source="RestaurantServiceComponent/billService" target="BillServiceComponent/BillService"/>
+  <sca:wire source="RestaurantServiceComponent/menuService" target="MenuServiceComponent/MenuService"/>
+  <sca:wire source="BillServiceComponent/vatService" target="VatServiceComponent/VatService"/>
+  <sca:wire source="BillServiceComponent/tipService" target="TipServiceComponent/TipService"/>
+  <sca:service name="RestaurantService" promote="RestaurantServiceComponent/RestaurantService">
+    <tuscany:binding.rmi name="RMI" host="localhost" port="8099" serviceName="RestaurantServiceRMI"/>
+  </sca:service>
+</sca:composite>

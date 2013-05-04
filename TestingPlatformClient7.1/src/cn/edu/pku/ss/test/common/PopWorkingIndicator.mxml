@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="400" height="226" title="Please waiting"
+	creationComplete="centerWindow()" showCloseButton="false" close="closeWindow()">
+	<mx:Script>
+        <![CDATA[
+            import mx.managers.PopUpManager;
+            
+            public function centerWindow():void
+            {
+            	PopUpManager.centerPopUp(this);
+            }
+            
+            public function closeWindow():void
+            {
+            	PopUpManager.removePopUp(this);
+            }
+            
+       ]]>
+       
+	</mx:Script>
+	<mx:ProgressBar x="70" y="58" width="268" indeterminate="true" labelPlacement="center" label="working" fontSize="12"/>
+	<mx:Button x="265" y="125" label="Cancel" />
+	
+</mx:TitleWindow>

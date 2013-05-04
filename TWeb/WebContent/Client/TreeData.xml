@@ -1,0 +1,12 @@
+<data label="2004">
+	<result label="Jan-04">
+		<product label="apple">81156</product>
+		<product label="orange">58883</product>
+		<product label="grape">49280</product>
+	</result>
+	<result label="Feb-04">
+		<product label="apple">81156</product>
+		<product label="orange">58883</product>
+		<product label="grape">49280</product>
+	</result>
+</data>

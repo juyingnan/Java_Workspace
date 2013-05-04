@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="ss.pku.edu.cn" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://add.example.ws" name="TEST" targetNamespace="ss.pku.edu.cn" xmlns:p="http://www.w3.org/2001/XMLSchema">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="addPLT">
+    <plnk:role name="addProvider" portType="wsdl:AddService"/>
+  </plnk:partnerLinkType>
+    <import location="AddService.wsdl" namespace="http://add.example.ws"/>
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="ss.pku.edu.cn">
+
+            <element name="TESTRequest">
+                <complexType>
+                    <sequence>
+                    	<element name="input" type="double"/>
+                    	<element name="input2" type="double"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="TESTResponse">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="double"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="NewOperation">
+            	<complexType>
+            		<sequence>
+
+            			<element name="in" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="NewOperationResponse">
+            	<complexType>
+            		<sequence>
+
+            			<element name="out" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+        </schema>
+    </types>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="TESTRequestMessage">
+        <part element="tns:TESTRequest" name="payload"/>
+    </message>
+    <message name="TESTResponseMessage">
+        <part element="tns:TESTResponse" name="payload"/>
+    </message>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the TEST BPEL process -->
+    <message name="NewOperationRequest">
+    	<part name="parameters" element="tns:NewOperation"></part>
+    </message>
+    <message name="NewOperationResponse">
+    	<part name="parameters" element="tns:NewOperationResponse"></part>
+    </message>
+    <portType name="TEST">
+        <operation name="process">
+            <input message="tns:TESTRequestMessage"/>
+            <output message="tns:TESTResponseMessage"/>
+        </operation>
+        <operation name="NewOperation">
+        	<input message="tns:NewOperationRequest"></input>
+        	<output message="tns:NewOperationResponse"></output>
+        </operation>
+    </portType>   
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="TEST">
+        <plnk:role name="TESTProvider" portType="tns:TEST"/>
+    </plnk:partnerLinkType>
+    
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="TESTBinding" type="tns:TEST">
+    	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    	<operation name="process">
+    		<soap:operation soapAction="ss.pku.edu.cn/process"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    </binding>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="TESTService">
+    	<port binding="tns:TESTBinding" name="TESTPort">
+    		<soap:address location="http://localhost:8080/ode/processes/TEST"/>
+    	</port>
+    </service>
+</definitions>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="700" height="300">
+
+	<mx:Script>  	
+		<![CDATA[
+			import mx.collections.ArrayCollection;  
+			import mx.controls.Alert;
+			
+	    	[Bindable]  
+            private var arrBP:ArrayCollection = new ArrayCollection(  
+                [ {label:"View Stumped Code", data:1},   
+                  {label:"Test", data:2}
+                ]);  
+                
+            [Bindable]  
+            private var arrCondition:ArrayCollection = new ArrayCollection(  
+                [ {label:"View Stumped Code", data:1},   
+                  {label:"Decision Coverage", data:"DecisionCoverage"},
+                  {label:"Condition Coverage", data:"ConditionCoverage"},
+                  {label:"Mutiple Condition(With Short Circuit)", data:"MutipleCoverage"},
+                  {label:"Mutiple Condition(Without Short Circuit)", data:"AllCoverage"}]);  
+
+	    	public function initializeView():void{
+//	    		if(radioAST!=null)
+//    				radioAST.selected = true;
+    			if(comboBoxCondition!=null)
+    				comboBoxCondition.selectedIndex = 0;
+    			if(comboBoxBP!=null)
+    				comboBoxBP.selectedIndex = 0;
+	    	}    
+
+            
+            public function selectionChangedAST(event:Event):void{
+            	comboBoxBP.enabled = false;
+            	comboBoxCondition.enabled = false;
+            	TestingObject.Instance.setStrategyAST();
+            }
+            
+            private function selectionChangedBP(event:Event):void{
+            	comboBoxBP.enabled = true;
+            	comboBoxCondition.enabled = false;
+            	TestingObject.Instance.setStrategyBP(comboBoxBP.selectedIndex);
+            }
+            
+            private function selectionChangedCondition(event:Event):void{
+            	comboBoxBP.enabled = false;
+            	comboBoxCondition.enabled = true;            	
+            	TestingObject.Instance.setStrategyCondition(comboBoxCondition.selectedIndex);	
+            }
+			
+			private function selectionChangedStruct(event:Event):void{
+				comboBoxBP.enabled = false;
+				comboBoxCondition.enabled = false; 
+				TestingObject.Instance.setStrategyAST();
+//				TestingObject.Instance.setStrategyCondition(comboBoxCondition.selectedIndex);	
+			}
+            
+	    ]]>
+	</mx:Script>
+
+	<mx:RadioButton id="radioBP"  x="117" y="108" label="Basis Path Testing" fontSize="14" fontWeight="bold" 
+		 change="selectionChangedBP(event);" selected="false"/>
+	<mx:RadioButton id="radioCondition"  x="117" y="154" label="Condition Testing" fontSize="14" fontWeight="bold" 
+		 change="selectionChangedCondition(event);"
+		 />
+	<mx:ComboBox x="380" y="107" fontSize="14" fontWeight="bold" id="comboBoxBP" 
+		dataProvider="{arrBP}" enabled="false" change="selectionChangedBP(event);" editable="false"></mx:ComboBox>
+	<mx:ComboBox x="380" y="154" fontSize="14" fontWeight="bold" id="comboBoxCondition"
+		dataProvider="{arrCondition}" enabled="false" change="selectionChangedCondition(event);"></mx:ComboBox>
+
+	<mx:Text x="106" y="35" text="Please select the testing strategy" fontWeight="bold" fontSize="16" height="30" fontFamily="Courier New"/>
+	<mx:RadioButtonGroup id="radiogroup1"/>
+	<mx:RadioButton x="118" y="68" label="View code struct" fontWeight="bold" fontSize="14" id="viewStruct" change="selectionChangedStruct(event);" selected="true"/>
+	
+</mx:Canvas>

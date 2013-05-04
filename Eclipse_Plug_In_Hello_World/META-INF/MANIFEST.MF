@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse_Plug_In_Hello_World
+Bundle-SymbolicName: Eclipse_Plug_In_Hello_World; singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: eclipse_plug_in_hello_world.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:xmlsource="services.xmlsource.*" xmlns:syntaxtreefile="services.syntaxtreefile.*">
+	<fx:Script>	
+		<![CDATA[
+			import mx.controls.Alert;
+			import cn.edu.pku.ss.test.*;
+			
+			[Bindable]
+			public var selectedNode:XML;
+			public var resultXML:XML;
+			
+//			public function initializeView():void{
+//				if(textBoxResult!=null)textBoxResult.text = "";
+//			}    
+//			
+//			public function activate():void{
+//				//注册一个测试结束事件
+//				TestingObject.Instance.addEventListener(TestingObject.TESTINGEVENT, testingComplete);
+//				TestingObject.Instance.doTesting();
+//				TestingObject.Instance.showPop(this);
+//			}   
+			
+//			public function testingComplete(e:Event):void{
+//				//解除测试结束事件
+//				TestingObject.Instance.removeEventListener(TestingObject.TESTINGEVENT, testingComplete);
+////				textBoxResult.text = TestingObject.Instance.Result;
+//			} 
+			
+			public function preInit():void
+			{
+				//var targetURL:String="http://10.1.0.33/temp/myTxt.xml";
+//				Alert.show("preInit");
+				var targetURL:String="http://localhost/syntaxTreeFile.xml";
+				var request:URLRequest=new URLRequest(targetURL);
+				var variables:URLLoader=new URLLoader();
+				variables.addEventListener(Event.COMPLETE,completeHandler);              
+				try
+				{
+					//					status="加载成功--啦啦啦";
+					variables.load(request);
+				}
+				catch(error:Error)
+				{
+					//					status="加载失败";
+					trace("无法加载"+error);
+				}
+			}
+			
+			private function completeHandler(event:Event):void
+			{
+//				Alert.show("completeHandler");
+				trace(event.target.data is String);
+				selectedNode=new XML(event.target.data);
+				xmlTree.dataProvider=selectedNode;
+				textBoxResult.text = "Code Result\n";
+				textBoxResult.text += TestingObject.Instance.getCode();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<mx:Text x="10" y="10" text="Result" fontWeight="bold" fontSize="16" height="30" fontFamily="Courier New"/>
+	<mx:HDividedBox x="50" y="40" width="651" height="250">
+		<mx:TextArea x="161" y="73" width="50%" height="100%" id="textBoxResult" fontSize="14"/>
+		<mx:Tree id="xmlTree" width="50%" height="100%" labelField="@label"/>
+	</mx:HDividedBox>
+	
+</s:Application>

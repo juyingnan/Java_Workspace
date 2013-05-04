@@ -1,0 +1,32 @@
+<uml>
+   <greenVersion="30500"/>
+   <type>
+      <name="=TestingPlatform/src<cn.edu.pku.ss.test.data{TestResult.java[TestResult"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="0"/>
+      <y="0"/>
+   </type>
+   <type>
+      <name="=TestingPlatform/src<cn.edu.pku.ss.test.data{TestData.java[TestData"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="143"/>
+      <y="138"/>
+   </type>
+   <type>
+      <name="=TestingPlatform/src<cn.edu.pku.ss.test.data{TestData.java[TestData[AttachementFile"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="654"/>
+      <y="129"/>
+   </type>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.dependency.DependencyIPart"/>
+      <sourceType="=TestingPlatform/src<cn.edu.pku.ss.test.data{TestData.java[TestData"/>
+      <targetType="=TestingPlatform/src<cn.edu.pku.ss.test.data{TestData.java[TestData[AttachementFile"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+</uml>
+

@@ -1,0 +1,1940 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_uQzY8D7CEeGGRLl_T9D32g">
+  <name xsi:nil="true"/>
+  <elementImport xmi:id="_umZ1gD7CEeGGRLl_T9D32g">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+  </elementImport>
+  <elementImport xmi:id="_umjmgT7CEeGGRLl_T9D32g">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#short"/>
+  </elementImport>
+  <elementImport xmi:id="_unmIUj7CEeGGRLl_T9D32g">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+  </elementImport>
+  <elementImport xmi:id="_un5qUT7CEeGGRLl_T9D32g">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+  </elementImport>
+  <elementImport xmi:id="_upiCAT7CEeGGRLl_T9D32g">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+  </elementImport>
+  <elementImport xmi:id="_urxdsT7CEeGGRLl_T9D32g">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+  </elementImport>
+  <elementImport xmi:id="_u1c-IT7CEeGGRLl_T9D32g">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#char"/>
+  </elementImport>
+  <elementImport xmi:id="_u2zB8D7CEeGGRLl_T9D32g">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+  </elementImport>
+  <elementImport xmi:id="_u3_Uwz7CEeGGRLl_T9D32g">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#float"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:Package" xmi:id="_uTL-kD7CEeGGRLl_T9D32g" name="org">
+    <packagedElement xmi:type="uml:Package" xmi:id="_uTL-kT7CEeGGRLl_T9D32g" name="jgap">
+      <packagedElement xmi:type="uml:Package" xmi:id="_uTL-kj7CEeGGRLl_T9D32g" name="impl">
+        <packagedElement xmi:type="uml:Class" xmi:id="_uT7lcD7CEeGGRLl_T9D32g" name="ShortGene">
+          <ownedComment xmi:id="_uVH4QD7CEeGGRLl_T9D32g">
+            <body>/** 
+ * A Gene implementation that supports a double values for its allele.
+ * Upper and lower bounds may optionally be provided to restrict the range
+ * of legal values allowed by this Gene instance.&lt;p>
+ * Partly copied from IntegerGene.
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+          </ownedComment>
+          <generalization xmi:id="_ulEYwD7CEeGGRLl_T9D32g" general="_ukw2xD7CEeGGRLl_T9D32g"/>
+          <ownedAttribute xmi:id="_umZ1gT7CEeGGRLl_T9D32g" name="CVS_REVISION" visibility="private" isStatic="true" isReadOnly="true">
+            <ownedComment xmi:id="_umjmgD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * String containing the CVS revision. Read out via reflection!
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <defaultValue xmi:type="uml:LiteralString" xmi:id="_umZ1gj7CEeGGRLl_T9D32g" value="$Revision: 1.39 $"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_umtXgD7CEeGGRLl_T9D32g" name="m_upperBound" visibility="private">
+            <ownedComment xmi:id="_um2hcD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * The upper bounds of values represented by this Gene. If not explicitly
+ * provided by the user, this should be set to Double.MAX_VALUE.
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#short"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_unAScD7CEeGGRLl_T9D32g" name="m_lowerBound" visibility="private">
+            <ownedComment xmi:id="_unAScT7CEeGGRLl_T9D32g">
+              <body>/** 
+ * The lower bounds of values represented by this Gene. If not explicitly
+ * provided by the user, this should be set to Double.MIN_VALUE
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#short"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_unAScj7CEeGGRLl_T9D32g" name="newGeneInternal" visibility="protected">
+            <ownedComment xmi:id="_unJcYD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Provides an implementation-independent means for creating new Gene
+ * instances.
+ * @return a new Gene instance of the same type and with the same
+ * setup as this concrete Gene
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_unAScz7CEeGGRLl_T9D32g" name="return" type="_ukw20j7CEeGGRLl_T9D32g" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_unJcYT7CEeGGRLl_T9D32g" name="getPersistentRepresentation" visibility="public">
+            <ownedComment xmi:id="_unTNYD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Retrieves a string representation of this Gene that includes any
+ * information required to reconstruct it at a later time, such as its
+ * value and internal state. This string will be used to represent this
+ * Gene in XML persistence. This is an optional method but, if not
+ * implemented, XML persistence and possibly other features will not be
+ * available. An UnsupportedOperationException should be thrown if no
+ * implementation is provided.
+ * @return a string representation of this Gene's current state
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_unJcYj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_unTNYT7CEeGGRLl_T9D32g" name="setValueFromPersistentRepresentation" visibility="public">
+            <ownedComment xmi:id="_unc-YD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Sets the value and internal state of this Gene from the string
+ * representation returned by a previous invocation of the
+ * getPersistentRepresentation() method. This is an optional method but,
+ * if not implemented, XML persistence and possibly other features will not
+ * be available. An UnsupportedOperationException should be thrown if no
+ * implementation is provided.
+ * @param a_representation the string representation retrieved from a
+ * prior call to the getPersistentRepresentation() method
+ * @throws UnsupportedOperationException to indicate that no implementation
+ * is provided for this method
+ * @throws UnsupportedRepresentationException if this Gene implementation
+ * does not support the given string representation
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_unTNYj7CEeGGRLl_T9D32g" name="a_representation">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_unc-YT7CEeGGRLl_T9D32g" name="shortValue" visibility="public">
+            <ownedComment xmi:id="_unc-Yz7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Retrieves the double value of this Gene, which may be more convenient in
+ * some cases than the more general getAllele() method.
+ * @return the double value of this Gene
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_unc-Yj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#short"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_unc-ZD7CEeGGRLl_T9D32g" name="setToRandomValue" visibility="public">
+            <ownedComment xmi:id="_unmIUD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Sets the value (allele) of this Gene to a random Double value between
+ * the lower and upper bounds (if any) of this Gene.
+ * @param a_numberGenerator the random number generator that should be used
+ * to create any random values. It's important to use this generator to
+ * maintain the user's flexibility to configure the genetic engine to use the
+ * random number generator of their choice
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_unc-ZT7CEeGGRLl_T9D32g" name="a_numberGenerator" type="_ukw22D7CEeGGRLl_T9D32g"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_unmIUz7CEeGGRLl_T9D32g" name="compareToNative" visibility="protected">
+            <ownedComment xmi:id="_unv5UD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Compares to objects by first casting them into their expected type
+ * (e.g. Integer for IntegerGene) and then calling the compareTo-method
+ * of the casted type.
+ * @param o1 first object to be compared, which is always not null
+ * @param o2 second object to be compared, which is always not null
+ * @return a negative integer, zero, or a positive integer as this object
+ * is less than, equal to, or greater than the object provided for comparison
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_unmIVD7CEeGGRLl_T9D32g" name="o1" type="_unmIUT7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_unmIVT7CEeGGRLl_T9D32g" name="o2" type="_unmIUT7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_unmIVj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_unv5UT7CEeGGRLl_T9D32g" name="mapValueToWithinBounds" visibility="protected">
+            <ownedComment xmi:id="_un5qUD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Maps the value of this DoubleGene to within the bounds specified by
+ * the m_upperBounds and m_lowerBounds instance variables. The value's
+ * relative position within the double range will be preserved within the
+ * bounds range (in other words, if the value is about halfway between the
+ * double max and min, then the resulting value will be about halfway
+ * between the upper bounds and lower bounds). If the value is null or
+ * is already within the bounds, it will be left unchanged.
+ * @author Neil Rotstan
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+          </ownedOperation>
+          <ownedOperation xmi:id="_un5qUj7CEeGGRLl_T9D32g" name="applyMutation" visibility="public">
+            <ownedComment xmi:id="_uoC0QD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * See interface Gene for description.
+ * @param index ignored (because there is only 1 atomic element)
+ * @param a_percentage percentage of mutation (greater than -1 and smaller
+ * than 1)
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_un5qUz7CEeGGRLl_T9D32g" name="index">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_un5qVD7CEeGGRLl_T9D32g" name="a_percentage">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uoC0QT7CEeGGRLl_T9D32g" name="hashCode" visibility="public">
+            <ownedComment xmi:id="_uoMlQD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Modified hashCode() function to return different hashcodes for differently
+ * ordered genes in a chromosome.
+ * @return -3 if no allele set, otherwise value return by BaseGene.hashCode()
+ * @author Klaus Meffert
+ * @since 2.2
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uoC0Qj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uoMlQT7CEeGGRLl_T9D32g" name="toString" visibility="public">
+            <ownedComment xmi:id="_uoVvMD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return string representation of this Gene's value that may be useful for
+ * display purposes
+ * @author Klaus Meffert
+ * @since 2.4
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uoMlQj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uoVvMT7CEeGGRLl_T9D32g" name="getLowerBound" visibility="public">
+            <ownedComment xmi:id="_uofgMD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return the lower bound set
+ * @author Klaus Meffert
+ * @since 3.0
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uoVvMj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#short"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uofgMT7CEeGGRLl_T9D32g" name="getUpperBound" visibility="public">
+            <ownedComment xmi:id="_uofgMz7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return the upper bound set
+ * @author Klaus Meffert
+ * @since 3.0
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uofgMj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#short"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_uVH4QT7CEeGGRLl_T9D32g" name="MyCrossoverOperator">
+          <ownedComment xmi:id="_uVazMD7CEeGGRLl_T9D32g">
+            <body>/** 
+ * The crossover operator randomly selects two Chromosomes from the
+ * population and &quot;mates&quot; them by randomly picking a gene and then
+ * swapping that gene and all subsequent genes between the two
+ * Chromosomes. The two modified Chromosomes are then added to the
+ * list of candidate Chromosomes.
+ * If you work with CompositeGene's, this operator expects them to contain
+ * genes of the same type (e.g. IntegerGene). If you have mixed types, please
+ * provide your own crossover operator.
+ * This CrossoverOperator supports both fixed and dynamic crossover rates.
+ * A fixed rate is one specified at construction time by the user. This
+ * operation is performed 1/m_crossoverRate as many times as there are
+ * Chromosomes in the population. Another possibility is giving the crossover
+ * rate as a percentage. A dynamic rate is one determined by this class on the
+ * fly if no fixed rate is provided.
+ * @author Neil Rotstan
+ * @author Klaus Meffert
+ * @author Chris Knowles
+ * @since 1.0
+ */
+</body>
+          </ownedComment>
+          <generalization xmi:id="_uopRMT7CEeGGRLl_T9D32g" general="_uopRMD7CEeGGRLl_T9D32g"/>
+          <ownedAttribute xmi:id="_uopRMj7CEeGGRLl_T9D32g" name="CVS_REVISION" visibility="private" isStatic="true" isReadOnly="true">
+            <ownedComment xmi:id="_uoybID7CEeGGRLl_T9D32g">
+              <body>/** 
+ * String containing the CVS revision. Read out via reflection!
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <defaultValue xmi:type="uml:LiteralString" xmi:id="_uopRMz7CEeGGRLl_T9D32g" value="$Revision: 1.44 $"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_uo8MID7CEeGGRLl_T9D32g" name="m_crossoverRate" visibility="private">
+            <ownedComment xmi:id="_upF9ID7CEeGGRLl_T9D32g">
+              <body>/** 
+ * The current crossover rate used by this crossover operator (mutual
+ * exclusive to m_crossoverRatePercent and m_crossoverRateCalc).
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_upPHED7CEeGGRLl_T9D32g" name="m_crossoverRatePercent" visibility="private">
+            <ownedComment xmi:id="_upPHET7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Crossover rate in percentage of population size (mutual exclusive to
+ * m_crossoverRate and m_crossoverRateCalc).
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_upY4ET7CEeGGRLl_T9D32g" name="m_crossoverRateCalc" visibility="private" type="_upY4ED7CEeGGRLl_T9D32g">
+            <ownedComment xmi:id="_upiCAD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Calculator for dynamically determining the crossover rate (mutual exclusive
+ * to m_crossoverRate and m_crossoverRatePercent)
+ */
+</body>
+            </ownedComment>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_uprzAD7CEeGGRLl_T9D32g" name="m_allowFullCrossOver" visibility="private">
+            <ownedComment xmi:id="_up1kAD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * true: x-over before and after a randomly chosen x-over point
+ * false: only x-over after the chosen point.
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_up-t8D7CEeGGRLl_T9D32g" name="m_xoverNewAge" visibility="private">
+            <ownedComment xmi:id="_uqIe8D7CEeGGRLl_T9D32g">
+              <body>/** 
+ * true: also x-over chromosomes with age of zero (newly created chromosomes)
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_uqIe8T7CEeGGRLl_T9D32g" name="init" visibility="protected">
+            <ownedComment xmi:id="_uqSP8D7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Initializes certain parameters.
+ * @author Klaus Meffert
+ * @since 3.3.2
+ */
+</body>
+            </ownedComment>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uqSP8j7CEeGGRLl_T9D32g" name="operate" visibility="public">
+            <ownedComment xmi:id="_uqSP9T7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Does the crossing over.
+ * @param a_population the population of chromosomes from the current
+ * evolution prior to exposure to crossing over
+ * @param a_candidateChromosomes the pool of chromosomes that have been
+ * selected for the next evolved population
+ * @author Neil Rotstan
+ * @author Klaus Meffert
+ * @since 2.0
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uqSP8z7CEeGGRLl_T9D32g" name="a_population" type="_uqSP8T7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_uqSP9D7CEeGGRLl_T9D32g" name="a_candidateChromosomes" type="_ukw2zT7CEeGGRLl_T9D32g"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uqbZ4T7CEeGGRLl_T9D32g" name="doCrossover" visibility="protected">
+            <ownedParameter xmi:id="_uqbZ4j7CEeGGRLl_T9D32g" name="firstMate" type="_uqbZ4D7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_uqbZ4z7CEeGGRLl_T9D32g" name="secondMate" type="_uqbZ4D7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_uqbZ5D7CEeGGRLl_T9D32g" name="a_candidateChromosomes" type="_ukw2zT7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_uqbZ5T7CEeGGRLl_T9D32g" name="generator" type="_ukw22D7CEeGGRLl_T9D32g"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uqlK4D7CEeGGRLl_T9D32g" name="setCrossoverRateCalc" visibility="private">
+            <ownedComment xmi:id="_uqlK4j7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Sets the crossover rate calculator.
+ * @param a_crossoverRateCalculator the new calculator
+ * @author Chris Knowles
+ * @since 2.0
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uqlK4T7CEeGGRLl_T9D32g" name="a_crossoverRateCalculator" type="_upY4ED7CEeGGRLl_T9D32g"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uqlK4z7CEeGGRLl_T9D32g" name="compareTo" visibility="public">
+            <ownedComment xmi:id="_uquU0D7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Compares the given object to this one.
+ * @param a_other the instance against which to compare this instance
+ * @return a negative number if this instance is &quot;less than&quot; the given
+ * instance, zero if they are equal to each other, and a positive number if
+ * this is &quot;greater than&quot; the given instance
+ * @author Klaus Meffert
+ * @since 2.6
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uqlK5D7CEeGGRLl_T9D32g" name="a_other" type="_unmIUT7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_uqlK5T7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uquU0T7CEeGGRLl_T9D32g" name="setAllowFullCrossOver" visibility="public">
+            <ownedComment xmi:id="_uq4F0D7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @param a_allowFullXOver x-over before and after a randomly chosen point
+ * @author Klaus Meffert
+ * @since 3.3.2
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uquU0j7CEeGGRLl_T9D32g" name="a_allowFullXOver">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uq4F0T7CEeGGRLl_T9D32g" name="isAllowFullCrossOver" visibility="public">
+            <ownedComment xmi:id="_urB20D7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return x-over before and after a randomly chosen x-over point
+ * @author Klaus Meffert
+ * @since 3.3.2
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uq4F0j7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_urB20T7CEeGGRLl_T9D32g" name="getCrossOverRate" visibility="public">
+            <ownedComment xmi:id="_urB20z7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return the crossover rate set
+ * @author Klaus Meffert
+ * @since 3.3.2
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_urB20j7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_urLAwD7CEeGGRLl_T9D32g" name="getCrossOverRatePercent" visibility="public">
+            <ownedComment xmi:id="_urLAwj7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return the crossover rate set
+ * @author Klaus Meffert
+ * @since 3.3.2
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_urLAwT7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_urLAwz7CEeGGRLl_T9D32g" name="setXoverNewAge" visibility="public">
+            <ownedComment xmi:id="_urUxwD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @param a_xoverNewAge true: also x-over chromosomes with age of zero (newly
+ * created chromosomes)
+ * @author Klaus Meffert
+ * @since 3.3.2
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_urLAxD7CEeGGRLl_T9D32g" name="a_xoverNewAge">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_urUxwT7CEeGGRLl_T9D32g" name="isXoverNewAge" visibility="public">
+            <ownedComment xmi:id="_ureiwD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return a_xoverNewAge true: also x-over chromosomes with age of zero (newly
+ * created chromosomes)
+ * @author Klaus Meffert
+ * @since 3.3.2
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_urUxwj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_uV3fID7CEeGGRLl_T9D32g" name="ByteGene">
+          <ownedComment xmi:id="_uWBQID7CEeGGRLl_T9D32g">
+            <body>/** 
+ * A Gene implementation that supports a double values for its allele.
+ * Upper and lower bounds may optionally be provided to restrict the range
+ * of legal values allowed by this Gene instance.&lt;p>
+ * Partly copied from IntegerGene.
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+          </ownedComment>
+          <generalization xmi:id="_ureiwT7CEeGGRLl_T9D32g" general="_ukw2xD7CEeGGRLl_T9D32g"/>
+          <ownedAttribute xmi:id="_urnssD7CEeGGRLl_T9D32g" name="CVS_REVISION" visibility="private" isStatic="true" isReadOnly="true">
+            <ownedComment xmi:id="_urxdsD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * String containing the CVS revision. Read out via reflection!
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <defaultValue xmi:type="uml:LiteralString" xmi:id="_urnssT7CEeGGRLl_T9D32g" value="$Revision: 1.39 $"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_urxdsj7CEeGGRLl_T9D32g" name="m_upperBound" visibility="private">
+            <ownedComment xmi:id="_ur6noD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * The upper bounds of values represented by this Gene. If not explicitly
+ * provided by the user, this should be set to Double.MAX_VALUE.
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_ur6noT7CEeGGRLl_T9D32g" name="m_lowerBound" visibility="private">
+            <ownedComment xmi:id="_usEYoD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * The lower bounds of values represented by this Gene. If not explicitly
+ * provided by the user, this should be set to Double.MIN_VALUE
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_usEYoT7CEeGGRLl_T9D32g" name="newGeneInternal" visibility="protected">
+            <ownedComment xmi:id="_usEYoz7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Provides an implementation-independent means for creating new Gene
+ * instances.
+ * @return a new Gene instance of the same type and with the same
+ * setup as this concrete Gene
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_usEYoj7CEeGGRLl_T9D32g" name="return" type="_ukw20j7CEeGGRLl_T9D32g" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_usEYpD7CEeGGRLl_T9D32g" name="getPersistentRepresentation" visibility="public">
+            <ownedComment xmi:id="_usOJoD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Retrieves a string representation of this Gene that includes any
+ * information required to reconstruct it at a later time, such as its
+ * value and internal state. This string will be used to represent this
+ * Gene in XML persistence. This is an optional method but, if not
+ * implemented, XML persistence and possibly other features will not be
+ * available. An UnsupportedOperationException should be thrown if no
+ * implementation is provided.
+ * @return a string representation of this Gene's current state
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_usEYpT7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_usOJoT7CEeGGRLl_T9D32g" name="setValueFromPersistentRepresentation" visibility="public">
+            <ownedComment xmi:id="_usOJoz7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Sets the value and internal state of this Gene from the string
+ * representation returned by a previous invocation of the
+ * getPersistentRepresentation() method. This is an optional method but,
+ * if not implemented, XML persistence and possibly other features will not
+ * be available. An UnsupportedOperationException should be thrown if no
+ * implementation is provided.
+ * @param a_representation the string representation retrieved from a
+ * prior call to the getPersistentRepresentation() method
+ * @throws UnsupportedOperationException to indicate that no implementation
+ * is provided for this method
+ * @throws UnsupportedRepresentationException if this Gene implementation
+ * does not support the given string representation
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_usOJoj7CEeGGRLl_T9D32g" name="a_representation">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_usOJpD7CEeGGRLl_T9D32g" name="byteValue" visibility="public">
+            <ownedComment xmi:id="_usXTkD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Retrieves the double value of this Gene, which may be more convenient in
+ * some cases than the more general getAllele() method.
+ * @return the double value of this Gene
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_usOJpT7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_usXTkT7CEeGGRLl_T9D32g" name="setToRandomValue" visibility="public">
+            <ownedComment xmi:id="_usXTkz7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Sets the value (allele) of this Gene to a random Double value between
+ * the lower and upper bounds (if any) of this Gene.
+ * @param a_numberGenerator the random number generator that should be used
+ * to create any random values. It's important to use this generator to
+ * maintain the user's flexibility to configure the genetic engine to use the
+ * random number generator of their choice
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_usXTkj7CEeGGRLl_T9D32g" name="a_numberGenerator" type="_ukw22D7CEeGGRLl_T9D32g"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_ushEkD7CEeGGRLl_T9D32g" name="compareToNative" visibility="protected">
+            <ownedComment xmi:id="_ushElD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Compares to objects by first casting them into their expected type
+ * (e.g. Integer for IntegerGene) and then calling the compareTo-method
+ * of the casted type.
+ * @param o1 first object to be compared, which is always not null
+ * @param o2 second object to be compared, which is always not null
+ * @return a negative integer, zero, or a positive integer as this object
+ * is less than, equal to, or greater than the object provided for comparison
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_ushEkT7CEeGGRLl_T9D32g" name="o1" type="_unmIUT7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_ushEkj7CEeGGRLl_T9D32g" name="o2" type="_unmIUT7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_ushEkz7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_ushElT7CEeGGRLl_T9D32g" name="mapValueToWithinBounds" visibility="protected">
+            <ownedComment xmi:id="_usq1kD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Maps the value of this DoubleGene to within the bounds specified by
+ * the m_upperBounds and m_lowerBounds instance variables. The value's
+ * relative position within the double range will be preserved within the
+ * bounds range (in other words, if the value is about halfway between the
+ * double max and min, then the resulting value will be about halfway
+ * between the upper bounds and lower bounds). If the value is null or
+ * is already within the bounds, it will be left unchanged.
+ * @author Neil Rotstan
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+          </ownedOperation>
+          <ownedOperation xmi:id="_usq1kT7CEeGGRLl_T9D32g" name="applyMutation" visibility="public">
+            <ownedComment xmi:id="_usq1lD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * See interface Gene for description.
+ * @param index ignored (because there is only 1 atomic element)
+ * @param a_percentage percentage of mutation (greater than -1 and smaller
+ * than 1)
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_usq1kj7CEeGGRLl_T9D32g" name="index">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_usq1kz7CEeGGRLl_T9D32g" name="a_percentage">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_usq1lT7CEeGGRLl_T9D32g" name="hashCode" visibility="public">
+            <ownedComment xmi:id="_usz_gD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Modified hashCode() function to return different hashcodes for differently
+ * ordered genes in a chromosome.
+ * @return -3 if no allele set, otherwise value return by BaseGene.hashCode()
+ * @author Klaus Meffert
+ * @since 2.2
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_usq1lj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_usz_gT7CEeGGRLl_T9D32g" name="toString" visibility="public">
+            <ownedComment xmi:id="_usz_gz7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return string representation of this Gene's value that may be useful for
+ * display purposes
+ * @author Klaus Meffert
+ * @since 2.4
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_usz_gj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_usz_hD7CEeGGRLl_T9D32g" name="getLowerBound" visibility="public">
+            <ownedComment xmi:id="_us9wgD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return the lower bound set
+ * @author Klaus Meffert
+ * @since 3.0
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_usz_hT7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_us9wgT7CEeGGRLl_T9D32g" name="getUpperBound" visibility="public">
+            <ownedComment xmi:id="_utG6cD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return the upper bound set
+ * @author Klaus Meffert
+ * @since 3.0
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_us9wgj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_uWnGAD7CEeGGRLl_T9D32g" name="Student" visibility="package">
+          <ownedAttribute xmi:id="_utQrcD7CEeGGRLl_T9D32g" name="studentID" visibility="package">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_uttXYD7CEeGGRLl_T9D32g" name="studentAge" visibility="package">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_ut3IYD7CEeGGRLl_T9D32g" name="setAge" visibility="public">
+            <ownedParameter xmi:id="_ut3IYT7CEeGGRLl_T9D32g" name="age">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uuASUD7CEeGGRLl_T9D32g" name="getAge" visibility="public">
+            <ownedParameter xmi:id="_uuASUT7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_uW6A8D7CEeGGRLl_T9D32g" name="ObjectGene">
+          <generalization xmi:id="_uuKDUD7CEeGGRLl_T9D32g" general="_ukw20D7CEeGGRLl_T9D32g"/>
+          <ownedAttribute xmi:id="_uuTNQD7CEeGGRLl_T9D32g" name="GENE_DELIMITER" visibility="public" isStatic="true" isReadOnly="true">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <defaultValue xmi:type="uml:LiteralString" xmi:id="_uuTNQT7CEeGGRLl_T9D32g" value="#"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_uuv5MD7CEeGGRLl_T9D32g" name="geneClass" visibility="private" type="_uuc-QD7CEeGGRLl_T9D32g"/>
+          <ownedAttribute xmi:id="_uvDbMD7CEeGGRLl_T9D32g" name="depth" visibility="private">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_uvfgED7CEeGGRLl_T9D32g" name="conf" visibility="private" type="_ukw20T7CEeGGRLl_T9D32g"/>
+          <ownedAttribute xmi:id="_uvzCED7CEeGGRLl_T9D32g" name="fs" visibility="private" type="_ukw2yT7CEeGGRLl_T9D32g">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uvzCET7CEeGGRLl_T9D32g" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uvzCEj7CEeGGRLl_T9D32g"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_uwPuAD7CEeGGRLl_T9D32g" name="GENE_DELIMITER_HEADING" visibility="public" isStatic="true" isReadOnly="true">
+            <ownedComment xmi:id="_uwY38D7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Represents the heading delimiter that is used to separate genes in the
+ * persistent representation of CompositeGene instances.
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <defaultValue xmi:type="uml:LiteralString" xmi:id="_uwPuAT7CEeGGRLl_T9D32g" value="&lt;"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_uwio8D7CEeGGRLl_T9D32g" name="GENE_DELIMITER_CLOSING" visibility="public" isStatic="true" isReadOnly="true">
+            <ownedComment xmi:id="_uwry4D7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Represents the closing delimiter that is used to separate genes in the
+ * persistent representation of CompositeGene instances.
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <defaultValue xmi:type="uml:LiteralString" xmi:id="_uwio8T7CEeGGRLl_T9D32g" value=">"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_uw1j4D7CEeGGRLl_T9D32g" name="m_genes" visibility="private" type="_uwry4T7CEeGGRLl_T9D32g">
+            <ownedComment xmi:id="_uw_U4D7CEeGGRLl_T9D32g">
+              <body>/** 
+ * The genes contained in this CompositeGene
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_uw_U4T7CEeGGRLl_T9D32g" name="addGene" visibility="public">
+            <ownedComment xmi:id="_uxSP0D7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Adds a gene to the CompositeGene.
+ * @param a_gene the gene to add
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uw_U4j7CEeGGRLl_T9D32g" name="a_gene" type="_ukw20j7CEeGGRLl_T9D32g"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uxSP0T7CEeGGRLl_T9D32g" name="addGene" visibility="public">
+            <ownedComment xmi:id="_uxcA0D7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Adds a gene to the CompositeGene's container. See comments in class
+ * header for additional details about equality (concerning &quot;strict&quot; param.)
+ * @param a_gene the gene to be added
+ * @param a_strict false: add the given gene except the gene itself already is
+ * contained within the CompositeGene's container. true: add the gene if
+ * there is no other gene being equal to the given gene in request to the
+ * Gene's equals method
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uxSP0j7CEeGGRLl_T9D32g" name="a_gene" type="_ukw20j7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_uxSP0z7CEeGGRLl_T9D32g" name="a_strict">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uxcA0T7CEeGGRLl_T9D32g" name="removeGene" visibility="public">
+            <ownedComment xmi:id="_uxlKwD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Removes the given gene from the collection of genes. The gene is
+ * removed if another gene exists that is equal to the given gene in respect
+ * to the equals method of the gene.
+ * @param a_gene the gene to be removed
+ * @return true: given gene found and removed
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uxcA0j7CEeGGRLl_T9D32g" name="a_gene" type="_ukw20j7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_uxcA0z7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uxlKwT7CEeGGRLl_T9D32g" name="cleanup" visibility="public">
+            <ownedComment xmi:id="_uxu7wD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Executed by the genetic engine when this Gene instance is no
+ * longer needed and should perform any necessary resource cleanup.
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uxu7wT7CEeGGRLl_T9D32g" name="setToRandomValue" visibility="public">
+            <ownedComment xmi:id="_ux4FsD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * See interface Gene for description.
+ * @param a_numberGenerator the random number generator that should be used
+ * to create any random values. It's important to use this generator to
+ * maintain the user's flexibility to configure the genetic engine to use the
+ * random number generator of their choice
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uxu7wj7CEeGGRLl_T9D32g" name="a_numberGenerator" type="_ukw22D7CEeGGRLl_T9D32g"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_ux4FsT7CEeGGRLl_T9D32g" name="setValueFromPersistentRepresentation" visibility="public">
+            <ownedComment xmi:id="_uyB2sD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * See interface Gene for description.
+ * @param a_representation the string representation retrieved from a prior
+ * call to the getPersistentRepresentation() method
+ * @throws UnsupportedRepresentationException
+ * @author Klaus Meffert
+ * @author Audrius Meskauskas
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_ux4Fsj7CEeGGRLl_T9D32g" name="a_representation">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uyB2sT7CEeGGRLl_T9D32g" name="createGene" visibility="protected">
+            <ownedComment xmi:id="_uyLnsD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Creates a new instance of gene.
+ * @param a_geneClassName name of the gene class
+ * @param a_persistentRepresentation persistent representation of the gene to
+ * create (could be obtained via getPersistentRepresentation)
+ * @return newly created gene
+ * @throws Exception
+ * @author Klaus Meffert
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uyB2sj7CEeGGRLl_T9D32g" name="a_geneClassName">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_uyB2sz7CEeGGRLl_T9D32g" name="a_persistentRepresentation">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_uyB2tD7CEeGGRLl_T9D32g" name="return" type="_ukw20j7CEeGGRLl_T9D32g" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uyLnsT7CEeGGRLl_T9D32g" name="getPersistentRepresentation" visibility="public">
+            <ownedComment xmi:id="_uyeioD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * See interface Gene for description.
+ * @return string representation of this Gene's current state
+ * @throws UnsupportedOperationException
+ * @author Klaus Meffert
+ * @author Audrius Meskauskas
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uyLnsj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uyeioT7CEeGGRLl_T9D32g" name="getAllele" visibility="public">
+            <ownedComment xmi:id="_uyoToD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Retrieves the value represented by this Gene. All values returned
+ * by this class will be Vector instances. Each element of the Vector
+ * represents the allele of the corresponding gene in the CompositeGene's
+ * container
+ * @return the value of this Gene
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uyeioj7CEeGGRLl_T9D32g" name="return" type="_unmIUT7CEeGGRLl_T9D32g" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uyoToT7CEeGGRLl_T9D32g" name="CreateInstance" visibility="public">
+            <ownedParameter xmi:id="_uyoToj7CEeGGRLl_T9D32g" name="return" type="_unmIUT7CEeGGRLl_T9D32g" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uyxdkD7CEeGGRLl_T9D32g" name="setAllele" visibility="public">
+            <ownedComment xmi:id="_uy7OkD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Sets the value of the contained Genes to the new given value. This class
+ * expects the value to be of a Vector type. Each element of the Vector
+ * must conform with the type of the gene in the CompositeGene's container
+ * at the corresponding position.
+ * @param a_newValue the new value of this Gene instance
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uyxdkT7CEeGGRLl_T9D32g" name="a_newValue" type="_unmIUT7CEeGGRLl_T9D32g"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uy7OkT7CEeGGRLl_T9D32g" name="newGeneInternal" visibility="protected">
+            <ownedComment xmi:id="_uzEYgD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Provides an implementation-independent means for creating new Gene
+ * instances.
+ * @return a new Gene instance of the same type and with the same setup as
+ * this concrete Gene
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uy7Okj7CEeGGRLl_T9D32g" name="return" type="_ukw20j7CEeGGRLl_T9D32g" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uzEYgT7CEeGGRLl_T9D32g" name="compareTo" visibility="public">
+            <ownedComment xmi:id="_uzOJgD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Compares this CompositeGene with the specified object for order. A
+ * false value is considered to be less than a true value. A null value
+ * is considered to be less than any non-null value.
+ * @param a_other the CompositeGene to be compared
+ * @return a negative integer, zero, or a positive integer as this object
+ * is less than, equal to, or greater than the specified object
+ * @throws ClassCastException if the specified object's type prevents it
+ * from being compared to this CompositeGene
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uzEYgj7CEeGGRLl_T9D32g" name="a_other" type="_unmIUT7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_uzEYgz7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uzOJgT7CEeGGRLl_T9D32g" name="equals" visibility="public">
+            <ownedParameter xmi:id="_uzOJgj7CEeGGRLl_T9D32g" name="a_other" type="_unmIUT7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_uzOJgz7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uzX6gD7CEeGGRLl_T9D32g" name="toString" visibility="public">
+            <ownedComment xmi:id="_uzhEcD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Retrieves a string representation of this CompositeGene's value that
+ * may be useful for display purposes.
+ * @return string representation of this CompositeGene's value. Every
+ * contained gene's string representation is delimited by the given
+ * delimiter
+ * @author Neil Rotstan
+ * @author Klaus Meffert
+ * @author Audrius Meskauskas
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uzX6gT7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uzhEcT7CEeGGRLl_T9D32g" name="isEmpty" visibility="public">
+            <ownedComment xmi:id="_uzq1cD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return true: no genes contained, false otherwise
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uzhEcj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uzq1cT7CEeGGRLl_T9D32g" name="geneAt" visibility="public">
+            <ownedComment xmi:id="_uz0mcD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @param a_index index to return the gene at
+ * @return the gene at the given index
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uzq1cj7CEeGGRLl_T9D32g" name="a_index">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_uzq1cz7CEeGGRLl_T9D32g" name="return" type="_ukw20j7CEeGGRLl_T9D32g" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_uz0mcT7CEeGGRLl_T9D32g" name="getGenes" visibility="public">
+            <ownedComment xmi:id="_u0HhYD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return list of genes contained in the CompositeGene
+ * @author Klaus Meffert
+ * @since 3.2.2
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_uz0mcj7CEeGGRLl_T9D32g" name="return" type="_ukw2zT7CEeGGRLl_T9D32g" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u0HhYT7CEeGGRLl_T9D32g" name="size" visibility="public">
+            <ownedComment xmi:id="_u0QrUD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return the number of genes contained
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u0HhYj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u0QrUT7CEeGGRLl_T9D32g" name="containsGeneByIdentity" visibility="public">
+            <ownedComment xmi:id="_u0acUD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Checks whether a specific gene is already contained. The determination
+ * will be done by checking for identity and not using the equal method!
+ * @param gene the gene under test
+ * @return true: the given gene object is contained
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u0QrUj7CEeGGRLl_T9D32g" name="gene" type="_ukw20j7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_u0QrUz7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u0acUT7CEeGGRLl_T9D32g" name="applyMutation" visibility="public">
+            <ownedComment xmi:id="_u0kNUD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Don't use this method, is makes no sense here. It is just there to
+ * satisfy the Gene interface. Instead, loop over all contained genes and
+ * call their applyMutation method.
+ * @param a_index does not matter here
+ * @param a_percentage does not matter here
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u0acUj7CEeGGRLl_T9D32g" name="a_index">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_u0acUz7CEeGGRLl_T9D32g" name="a_percentage">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u0kNUT7CEeGGRLl_T9D32g" name="split" visibility="protected" isStatic="true">
+            <ownedComment xmi:id="_u0tXQD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Splits a_string into individual gene representations.
+ * @param a_string the string to split
+ * @return the elements of the returned array are the persistent
+ * representation strings of the gene's components
+ * @throws UnsupportedRepresentationException
+ * @author Audrius Meskauskas
+ * @since 2.0
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u0kNUj7CEeGGRLl_T9D32g" name="a_string">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_u0kNUz7CEeGGRLl_T9D32g" name="return" type="_ukw2zT7CEeGGRLl_T9D32g" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u0tXQT7CEeGGRLl_T9D32g" name="hashCode" visibility="public">
+            <ownedComment xmi:id="_u03IQD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Retrieves the hash code value for this Gene.
+ * @return this Gene's hash code
+ * @author Klaus Meffert
+ * @since 2.2
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u0tXQj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u03IQT7CEeGGRLl_T9D32g" name="getInternalValue" visibility="protected">
+            <ownedComment xmi:id="_u1A5QD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * This method is not called internally because BaseGene.getAllele() is
+ * overridden here!
+ * @return always null
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u03IQj7CEeGGRLl_T9D32g" name="return" type="_unmIUT7CEeGGRLl_T9D32g" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u1KDMD7CEeGGRLl_T9D32g" name="getBusinessKey" visibility="public">
+            <ownedParameter xmi:id="_u1KDMT7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_uXgd4D7CEeGGRLl_T9D32g" name="CharGene">
+          <ownedComment xmi:id="_uXpn0D7CEeGGRLl_T9D32g">
+            <body>/** 
+ * A Gene implementation that supports a double values for its allele.
+ * Upper and lower bounds may optionally be provided to restrict the range
+ * of legal values allowed by this Gene instance.&lt;p>
+ * Partly copied from IntegerGene.
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+          </ownedComment>
+          <generalization xmi:id="_u1T0MD7CEeGGRLl_T9D32g" general="_ukw2xD7CEeGGRLl_T9D32g"/>
+          <ownedAttribute xmi:id="_u1T0MT7CEeGGRLl_T9D32g" name="CVS_REVISION" visibility="private" isStatic="true" isReadOnly="true">
+            <ownedComment xmi:id="_u1c-ID7CEeGGRLl_T9D32g">
+              <body>/** 
+ * String containing the CVS revision. Read out via reflection!
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <defaultValue xmi:type="uml:LiteralString" xmi:id="_u1T0Mj7CEeGGRLl_T9D32g" value="$Revision: 1.39 $"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_u1c-Ij7CEeGGRLl_T9D32g" name="m_upperBound" visibility="private">
+            <ownedComment xmi:id="_u1mvID7CEeGGRLl_T9D32g">
+              <body>/** 
+ * The upper bounds of values represented by this Gene. If not explicitly
+ * provided by the user, this should be set to Double.MAX_VALUE.
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#char"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_u1mvIT7CEeGGRLl_T9D32g" name="m_lowerBound" visibility="private">
+            <ownedComment xmi:id="_u1wgID7CEeGGRLl_T9D32g">
+              <body>/** 
+ * The lower bounds of values represented by this Gene. If not explicitly
+ * provided by the user, this should be set to Double.MIN_VALUE
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#char"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_u1wgIT7CEeGGRLl_T9D32g" name="newGeneInternal" visibility="protected">
+            <ownedComment xmi:id="_u1wgIz7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Provides an implementation-independent means for creating new Gene
+ * instances.
+ * @return a new Gene instance of the same type and with the same
+ * setup as this concrete Gene
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u1wgIj7CEeGGRLl_T9D32g" name="return" type="_ukw20j7CEeGGRLl_T9D32g" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u1wgJD7CEeGGRLl_T9D32g" name="getPersistentRepresentation" visibility="public">
+            <ownedComment xmi:id="_u15qED7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Retrieves a string representation of this Gene that includes any
+ * information required to reconstruct it at a later time, such as its
+ * value and internal state. This string will be used to represent this
+ * Gene in XML persistence. This is an optional method but, if not
+ * implemented, XML persistence and possibly other features will not be
+ * available. An UnsupportedOperationException should be thrown if no
+ * implementation is provided.
+ * @return a string representation of this Gene's current state
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u1wgJT7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u15qET7CEeGGRLl_T9D32g" name="setValueFromPersistentRepresentation" visibility="public">
+            <ownedComment xmi:id="_u15qEz7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Sets the value and internal state of this Gene from the string
+ * representation returned by a previous invocation of the
+ * getPersistentRepresentation() method. This is an optional method but,
+ * if not implemented, XML persistence and possibly other features will not
+ * be available. An UnsupportedOperationException should be thrown if no
+ * implementation is provided.
+ * @param a_representation the string representation retrieved from a
+ * prior call to the getPersistentRepresentation() method
+ * @throws UnsupportedOperationException to indicate that no implementation
+ * is provided for this method
+ * @throws UnsupportedRepresentationException if this Gene implementation
+ * does not support the given string representation
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u15qEj7CEeGGRLl_T9D32g" name="a_representation">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u15qFD7CEeGGRLl_T9D32g" name="charValue" visibility="public">
+            <ownedComment xmi:id="_u2DbED7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Retrieves the double value of this Gene, which may be more convenient in
+ * some cases than the more general getAllele() method.
+ * @return the double value of this Gene
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u15qFT7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#char"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u2DbET7CEeGGRLl_T9D32g" name="setToRandomValue" visibility="public">
+            <ownedComment xmi:id="_u2DbEz7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Sets the value (allele) of this Gene to a random Double value between
+ * the lower and upper bounds (if any) of this Gene.
+ * @param a_numberGenerator the random number generator that should be used
+ * to create any random values. It's important to use this generator to
+ * maintain the user's flexibility to configure the genetic engine to use the
+ * random number generator of their choice
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u2DbEj7CEeGGRLl_T9D32g" name="a_numberGenerator" type="_ukw22D7CEeGGRLl_T9D32g"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u2DbFD7CEeGGRLl_T9D32g" name="compareToNative" visibility="protected">
+            <ownedComment xmi:id="_u2NMED7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Compares to objects by first casting them into their expected type
+ * (e.g. Integer for IntegerGene) and then calling the compareTo-method
+ * of the casted type.
+ * @param o1 first object to be compared, which is always not null
+ * @param o2 second object to be compared, which is always not null
+ * @return a negative integer, zero, or a positive integer as this object
+ * is less than, equal to, or greater than the object provided for comparison
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u2DbFT7CEeGGRLl_T9D32g" name="o1" type="_unmIUT7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_u2DbFj7CEeGGRLl_T9D32g" name="o2" type="_unmIUT7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_u2DbFz7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u2NMET7CEeGGRLl_T9D32g" name="mapValueToWithinBounds" visibility="protected">
+            <ownedComment xmi:id="_u2NMEj7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Maps the value of this DoubleGene to within the bounds specified by
+ * the m_upperBounds and m_lowerBounds instance variables. The value's
+ * relative position within the double range will be preserved within the
+ * bounds range (in other words, if the value is about halfway between the
+ * double max and min, then the resulting value will be about halfway
+ * between the upper bounds and lower bounds). If the value is null or
+ * is already within the bounds, it will be left unchanged.
+ * @author Neil Rotstan
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u2NMEz7CEeGGRLl_T9D32g" name="applyMutation" visibility="public">
+            <ownedComment xmi:id="_u2WWAD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * See interface Gene for description.
+ * @param index ignored (because there is only 1 atomic element)
+ * @param a_percentage percentage of mutation (greater than -1 and smaller
+ * than 1)
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u2NMFD7CEeGGRLl_T9D32g" name="index">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_u2NMFT7CEeGGRLl_T9D32g" name="a_percentage">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u2WWAT7CEeGGRLl_T9D32g" name="hashCode" visibility="public">
+            <ownedComment xmi:id="_u2WWAz7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Modified hashCode() function to return different hashcodes for differently
+ * ordered genes in a chromosome.
+ * @return -3 if no allele set, otherwise value return by BaseGene.hashCode()
+ * @author Klaus Meffert
+ * @since 2.2
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u2WWAj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u2WWBD7CEeGGRLl_T9D32g" name="toString" visibility="public">
+            <ownedComment xmi:id="_u2gHAD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return string representation of this Gene's value that may be useful for
+ * display purposes
+ * @author Klaus Meffert
+ * @since 2.4
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u2WWBT7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u2gHAT7CEeGGRLl_T9D32g" name="getLowerBound" visibility="public">
+            <ownedComment xmi:id="_u2gHAz7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return the lower bound set
+ * @author Klaus Meffert
+ * @since 3.0
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u2gHAj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#char"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u2gHBD7CEeGGRLl_T9D32g" name="getUpperBound" visibility="public">
+            <ownedComment xmi:id="_u2pQ8D7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return the upper bound set
+ * @author Klaus Meffert
+ * @since 3.0
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u2gHBT7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#char"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_uX9J0D7CEeGGRLl_T9D32g" name="LongGene">
+          <ownedComment xmi:id="_uX9J0T7CEeGGRLl_T9D32g">
+            <body>/** 
+ * A Gene implementation that supports a double values for its allele.
+ * Upper and lower bounds may optionally be provided to restrict the range
+ * of legal values allowed by this Gene instance.&lt;p>
+ * Partly copied from IntegerGene.
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+          </ownedComment>
+          <generalization xmi:id="_u2pQ8T7CEeGGRLl_T9D32g" general="_ukw2xD7CEeGGRLl_T9D32g"/>
+          <ownedAttribute xmi:id="_u2pQ8j7CEeGGRLl_T9D32g" name="CVS_REVISION" visibility="private" isStatic="true" isReadOnly="true">
+            <ownedComment xmi:id="_u2pQ9D7CEeGGRLl_T9D32g">
+              <body>/** 
+ * String containing the CVS revision. Read out via reflection!
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <defaultValue xmi:type="uml:LiteralString" xmi:id="_u2pQ8z7CEeGGRLl_T9D32g" value="$Revision: 1.39 $"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_u2zB8T7CEeGGRLl_T9D32g" name="m_upperBound" visibility="private">
+            <ownedComment xmi:id="_u2zB8j7CEeGGRLl_T9D32g">
+              <body>/** 
+ * The upper bounds of values represented by this Gene. If not explicitly
+ * provided by the user, this should be set to Double.MAX_VALUE.
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_u28y8D7CEeGGRLl_T9D32g" name="m_lowerBound" visibility="private">
+            <ownedComment xmi:id="_u3F84D7CEeGGRLl_T9D32g">
+              <body>/** 
+ * The lower bounds of values represented by this Gene. If not explicitly
+ * provided by the user, this should be set to Double.MIN_VALUE
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_u3F84T7CEeGGRLl_T9D32g" name="newGeneInternal" visibility="protected">
+            <ownedComment xmi:id="_u3F84z7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Provides an implementation-independent means for creating new Gene
+ * instances.
+ * @return a new Gene instance of the same type and with the same
+ * setup as this concrete Gene
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u3F84j7CEeGGRLl_T9D32g" name="return" type="_ukw20j7CEeGGRLl_T9D32g" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u3F85D7CEeGGRLl_T9D32g" name="getPersistentRepresentation" visibility="public">
+            <ownedComment xmi:id="_u3Pt4D7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Retrieves a string representation of this Gene that includes any
+ * information required to reconstruct it at a later time, such as its
+ * value and internal state. This string will be used to represent this
+ * Gene in XML persistence. This is an optional method but, if not
+ * implemented, XML persistence and possibly other features will not be
+ * available. An UnsupportedOperationException should be thrown if no
+ * implementation is provided.
+ * @return a string representation of this Gene's current state
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u3F85T7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u3Pt4T7CEeGGRLl_T9D32g" name="setValueFromPersistentRepresentation" visibility="public">
+            <ownedComment xmi:id="_u3Pt4z7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Sets the value and internal state of this Gene from the string
+ * representation returned by a previous invocation of the
+ * getPersistentRepresentation() method. This is an optional method but,
+ * if not implemented, XML persistence and possibly other features will not
+ * be available. An UnsupportedOperationException should be thrown if no
+ * implementation is provided.
+ * @param a_representation the string representation retrieved from a
+ * prior call to the getPersistentRepresentation() method
+ * @throws UnsupportedOperationException to indicate that no implementation
+ * is provided for this method
+ * @throws UnsupportedRepresentationException if this Gene implementation
+ * does not support the given string representation
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u3Pt4j7CEeGGRLl_T9D32g" name="a_representation">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u3Pt5D7CEeGGRLl_T9D32g" name="longValue" visibility="public">
+            <ownedComment xmi:id="_u3Pt5j7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Retrieves the double value of this Gene, which may be more convenient in
+ * some cases than the more general getAllele() method.
+ * @return the double value of this Gene
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u3Pt5T7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u3Ze4D7CEeGGRLl_T9D32g" name="setToRandomValue" visibility="public">
+            <ownedComment xmi:id="_u3Ze4j7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Sets the value (allele) of this Gene to a random Double value between
+ * the lower and upper bounds (if any) of this Gene.
+ * @param a_numberGenerator the random number generator that should be used
+ * to create any random values. It's important to use this generator to
+ * maintain the user's flexibility to configure the genetic engine to use the
+ * random number generator of their choice
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u3Ze4T7CEeGGRLl_T9D32g" name="a_numberGenerator" type="_ukw22D7CEeGGRLl_T9D32g"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u3Ze4z7CEeGGRLl_T9D32g" name="compareToNative" visibility="protected">
+            <ownedComment xmi:id="_u3Ze5z7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Compares to objects by first casting them into their expected type
+ * (e.g. Integer for IntegerGene) and then calling the compareTo-method
+ * of the casted type.
+ * @param o1 first object to be compared, which is always not null
+ * @param o2 second object to be compared, which is always not null
+ * @return a negative integer, zero, or a positive integer as this object
+ * is less than, equal to, or greater than the object provided for comparison
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u3Ze5D7CEeGGRLl_T9D32g" name="o1" type="_unmIUT7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_u3Ze5T7CEeGGRLl_T9D32g" name="o2" type="_unmIUT7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_u3Ze5j7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u3io0D7CEeGGRLl_T9D32g" name="mapValueToWithinBounds" visibility="protected">
+            <ownedComment xmi:id="_u3io0T7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Maps the value of this DoubleGene to within the bounds specified by
+ * the m_upperBounds and m_lowerBounds instance variables. The value's
+ * relative position within the double range will be preserved within the
+ * bounds range (in other words, if the value is about halfway between the
+ * double max and min, then the resulting value will be about halfway
+ * between the upper bounds and lower bounds). If the value is null or
+ * is already within the bounds, it will be left unchanged.
+ * @author Neil Rotstan
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u3io0j7CEeGGRLl_T9D32g" name="applyMutation" visibility="public">
+            <ownedComment xmi:id="_u3io1T7CEeGGRLl_T9D32g">
+              <body>/** 
+ * See interface Gene for description.
+ * @param index ignored (because there is only 1 atomic element)
+ * @param a_percentage percentage of mutation (greater than -1 and smaller
+ * than 1)
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u3io0z7CEeGGRLl_T9D32g" name="index">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_u3io1D7CEeGGRLl_T9D32g" name="a_percentage">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u3io1j7CEeGGRLl_T9D32g" name="hashCode" visibility="public">
+            <ownedComment xmi:id="_u3sZ0D7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Modified hashCode() function to return different hashcodes for differently
+ * ordered genes in a chromosome.
+ * @return -3 if no allele set, otherwise value return by BaseGene.hashCode()
+ * @author Klaus Meffert
+ * @since 2.2
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u3io1z7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u3sZ0T7CEeGGRLl_T9D32g" name="toString" visibility="public">
+            <ownedComment xmi:id="_u3sZ0z7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return string representation of this Gene's value that may be useful for
+ * display purposes
+ * @author Klaus Meffert
+ * @since 2.4
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u3sZ0j7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u3sZ1D7CEeGGRLl_T9D32g" name="getLowerBound" visibility="public">
+            <ownedComment xmi:id="_u31jwD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return the lower bound set
+ * @author Klaus Meffert
+ * @since 3.0
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u3sZ1T7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u31jwT7CEeGGRLl_T9D32g" name="getUpperBound" visibility="public">
+            <ownedComment xmi:id="_u31jwz7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return the upper bound set
+ * @author Klaus Meffert
+ * @since 3.0
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u31jwj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_uYQEwD7CEeGGRLl_T9D32g" name="FloatGene">
+          <ownedComment xmi:id="_uYZ1wD7CEeGGRLl_T9D32g">
+            <body>/** 
+ * A Gene implementation that supports a double values for its allele.
+ * Upper and lower bounds may optionally be provided to restrict the range
+ * of legal values allowed by this Gene instance.&lt;p>
+ * Partly copied from IntegerGene.
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+          </ownedComment>
+          <generalization xmi:id="_u31jxD7CEeGGRLl_T9D32g" general="_ukw2xD7CEeGGRLl_T9D32g"/>
+          <ownedAttribute xmi:id="_u3_UwD7CEeGGRLl_T9D32g" name="CVS_REVISION" visibility="private" isStatic="true" isReadOnly="true">
+            <ownedComment xmi:id="_u3_Uwj7CEeGGRLl_T9D32g">
+              <body>/** 
+ * String containing the CVS revision. Read out via reflection!
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <defaultValue xmi:type="uml:LiteralString" xmi:id="_u3_UwT7CEeGGRLl_T9D32g" value="$Revision: 1.39 $"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_u4JFwD7CEeGGRLl_T9D32g" name="m_upperBound" visibility="private">
+            <ownedComment xmi:id="_u4JFwT7CEeGGRLl_T9D32g">
+              <body>/** 
+ * The upper bounds of values represented by this Gene. If not explicitly
+ * provided by the user, this should be set to Double.MAX_VALUE.
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#float"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_u4SPsD7CEeGGRLl_T9D32g" name="m_lowerBound" visibility="private">
+            <ownedComment xmi:id="_u4SPsT7CEeGGRLl_T9D32g">
+              <body>/** 
+ * The lower bounds of values represented by this Gene. If not explicitly
+ * provided by the user, this should be set to Double.MIN_VALUE
+ */
+</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#float"/>
+          </ownedAttribute>
+          <ownedOperation xmi:id="_u4SPsj7CEeGGRLl_T9D32g" name="newGeneInternal" visibility="protected">
+            <ownedComment xmi:id="_u4cAsD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Provides an implementation-independent means for creating new Gene
+ * instances.
+ * @return a new Gene instance of the same type and with the same
+ * setup as this concrete Gene
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u4SPsz7CEeGGRLl_T9D32g" name="return" type="_ukw20j7CEeGGRLl_T9D32g" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u4cAsT7CEeGGRLl_T9D32g" name="getPersistentRepresentation" visibility="public">
+            <ownedComment xmi:id="_u4cAsz7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Retrieves a string representation of this Gene that includes any
+ * information required to reconstruct it at a later time, such as its
+ * value and internal state. This string will be used to represent this
+ * Gene in XML persistence. This is an optional method but, if not
+ * implemented, XML persistence and possibly other features will not be
+ * available. An UnsupportedOperationException should be thrown if no
+ * implementation is provided.
+ * @return a string representation of this Gene's current state
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u4cAsj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u4lxsD7CEeGGRLl_T9D32g" name="setValueFromPersistentRepresentation" visibility="public">
+            <ownedComment xmi:id="_u4lxsj7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Sets the value and internal state of this Gene from the string
+ * representation returned by a previous invocation of the
+ * getPersistentRepresentation() method. This is an optional method but,
+ * if not implemented, XML persistence and possibly other features will not
+ * be available. An UnsupportedOperationException should be thrown if no
+ * implementation is provided.
+ * @param a_representation the string representation retrieved from a
+ * prior call to the getPersistentRepresentation() method
+ * @throws UnsupportedOperationException to indicate that no implementation
+ * is provided for this method
+ * @throws UnsupportedRepresentationException if this Gene implementation
+ * does not support the given string representation
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u4lxsT7CEeGGRLl_T9D32g" name="a_representation">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u4lxsz7CEeGGRLl_T9D32g" name="floatValue" visibility="public">
+            <ownedComment xmi:id="_u4u7oD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Retrieves the double value of this Gene, which may be more convenient in
+ * some cases than the more general getAllele() method.
+ * @return the double value of this Gene
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u4lxtD7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#float"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u4u7oT7CEeGGRLl_T9D32g" name="setToRandomValue" visibility="public">
+            <ownedComment xmi:id="_u4u7oz7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Sets the value (allele) of this Gene to a random Double value between
+ * the lower and upper bounds (if any) of this Gene.
+ * @param a_numberGenerator the random number generator that should be used
+ * to create any random values. It's important to use this generator to
+ * maintain the user's flexibility to configure the genetic engine to use the
+ * random number generator of their choice
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u4u7oj7CEeGGRLl_T9D32g" name="a_numberGenerator" type="_ukw22D7CEeGGRLl_T9D32g"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u4u7pD7CEeGGRLl_T9D32g" name="compareToNative" visibility="protected">
+            <ownedComment xmi:id="_u44soD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Compares to objects by first casting them into their expected type
+ * (e.g. Integer for IntegerGene) and then calling the compareTo-method
+ * of the casted type.
+ * @param o1 first object to be compared, which is always not null
+ * @param o2 second object to be compared, which is always not null
+ * @return a negative integer, zero, or a positive integer as this object
+ * is less than, equal to, or greater than the object provided for comparison
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u4u7pT7CEeGGRLl_T9D32g" name="o1" type="_unmIUT7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_u4u7pj7CEeGGRLl_T9D32g" name="o2" type="_unmIUT7CEeGGRLl_T9D32g"/>
+            <ownedParameter xmi:id="_u4u7pz7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u44soT7CEeGGRLl_T9D32g" name="mapValueToWithinBounds" visibility="protected">
+            <ownedComment xmi:id="_u44soj7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Maps the value of this DoubleGene to within the bounds specified by
+ * the m_upperBounds and m_lowerBounds instance variables. The value's
+ * relative position within the double range will be preserved within the
+ * bounds range (in other words, if the value is about halfway between the
+ * double max and min, then the resulting value will be about halfway
+ * between the upper bounds and lower bounds). If the value is null or
+ * is already within the bounds, it will be left unchanged.
+ * @author Neil Rotstan
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u44soz7CEeGGRLl_T9D32g" name="applyMutation" visibility="public">
+            <ownedComment xmi:id="_u44spj7CEeGGRLl_T9D32g">
+              <body>/** 
+ * See interface Gene for description.
+ * @param index ignored (because there is only 1 atomic element)
+ * @param a_percentage percentage of mutation (greater than -1 and smaller
+ * than 1)
+ * @author Klaus Meffert
+ * @since 1.1
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u44spD7CEeGGRLl_T9D32g" name="index">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_u44spT7CEeGGRLl_T9D32g" name="a_percentage">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u5B2kD7CEeGGRLl_T9D32g" name="hashCode" visibility="public">
+            <ownedComment xmi:id="_u5B2kj7CEeGGRLl_T9D32g">
+              <body>/** 
+ * Modified hashCode() function to return different hashcodes for differently
+ * ordered genes in a chromosome.
+ * @return -3 if no allele set, otherwise value return by BaseGene.hashCode()
+ * @author Klaus Meffert
+ * @since 2.2
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u5B2kT7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u5B2kz7CEeGGRLl_T9D32g" name="toString" visibility="public">
+            <ownedComment xmi:id="_u5B2lT7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return string representation of this Gene's value that may be useful for
+ * display purposes
+ * @author Klaus Meffert
+ * @since 2.4
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u5B2lD7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u5B2lj7CEeGGRLl_T9D32g" name="getLowerBound" visibility="public">
+            <ownedComment xmi:id="_u5LnkD7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return the lower bound set
+ * @author Klaus Meffert
+ * @since 3.0
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u5B2lz7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#float"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="_u5LnkT7CEeGGRLl_T9D32g" name="getUpperBound" visibility="public">
+            <ownedComment xmi:id="_u5Lnkz7CEeGGRLl_T9D32g">
+              <body>/** 
+ * @return the upper bound set
+ * @author Klaus Meffert
+ * @since 3.0
+ */
+</body>
+            </ownedComment>
+            <ownedParameter xmi:id="_u5Lnkj7CEeGGRLl_T9D32g" name="return" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#float"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_ukw2xD7CEeGGRLl_T9D32g" name="NumberGene"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_ukw2xT7CEeGGRLl_T9D32g" name="StockRandomGenerator"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw2wz7CEeGGRLl_T9D32g" name="*"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw20D7CEeGGRLl_T9D32g" name="BaseGene"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw20T7CEeGGRLl_T9D32g" name="Configuration"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw20j7CEeGGRLl_T9D32g" name="Gene"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw20z7CEeGGRLl_T9D32g" name="Genotype"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw21D7CEeGGRLl_T9D32g" name="IBusinessKey"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw21T7CEeGGRLl_T9D32g" name="ICompositeGene"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw21j7CEeGGRLl_T9D32g" name="IPersistentRepresentation"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw21z7CEeGGRLl_T9D32g" name="InvalidConfigurationException"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw22D7CEeGGRLl_T9D32g" name="RandomGenerator"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw22T7CEeGGRLl_T9D32g" name="UnsupportedRepresentationException"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_ukw2wD7CEeGGRLl_T9D32g" name="java">
+    <packagedElement xmi:type="uml:Package" xmi:id="_ukw2wT7CEeGGRLl_T9D32g" name="util">
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw2wj7CEeGGRLl_T9D32g" name="*"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw2yj7CEeGGRLl_T9D32g" name="ArrayList"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw2yz7CEeGGRLl_T9D32g" name="Collections"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw2zD7CEeGGRLl_T9D32g" name="Iterator"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw2zT7CEeGGRLl_T9D32g" name="List"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw2zj7CEeGGRLl_T9D32g" name="StringTokenizer"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_ukw2zz7CEeGGRLl_T9D32g" name="Vector"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_ukw2xj7CEeGGRLl_T9D32g" name="lang">
+      <packagedElement xmi:type="uml:Package" xmi:id="_ukw2xz7CEeGGRLl_T9D32g" name="reflect">
+        <packagedElement xmi:type="uml:DataType" xmi:id="_ukw2yD7CEeGGRLl_T9D32g" name="Constructor"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_ukw2yT7CEeGGRLl_T9D32g" name="Field"/>
+      </packagedElement>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_unmIUT7CEeGGRLl_T9D32g" name="Object"/>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_uopRMD7CEeGGRLl_T9D32g" name="BaseGeneticOperator"/>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_upY4ED7CEeGGRLl_T9D32g" name="IUniversalRateCalculator"/>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_uqSP8T7CEeGGRLl_T9D32g" name="Population"/>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_uqbZ4D7CEeGGRLl_T9D32g" name="IChromosome"/>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_uuc-QD7CEeGGRLl_T9D32g" name="Class"/>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_uwry4T7CEeGGRLl_T9D32g" name="List&lt;Gene>"/>
+</uml:Model>

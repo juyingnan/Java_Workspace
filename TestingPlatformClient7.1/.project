@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>TestingPlatformClient7.1</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.adobe.flexbuilder.project.flexbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.adobe.flexbuilder.project.flexnature</nature>
+		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>bin-debug</name>
+			<type>2</type>
+			<location>C:/Program/Apache/Tomcat/webapps/TWeb/Client</location>
+		</link>
+		<link>
+			<name>bin-release</name>
+			<type>2</type>
+			<location>E:/Programs/Java/workspace/TWeb/WebContent/Client</location>
+		</link>
+		<link>
+			<name>bin-release1</name>
+			<type>2</type>
+			<location>C:/Program/Apache/Tomcat/webapps/TWeb/Client</location>
+		</link>
+		<link>
+			<name>bin-release2</name>
+			<type>2</type>
+			<location>E:/lian/TestingPlatform_Server/TWeb/WebContent/Client</location>
+		</link>
+	</linkedResources>
+</projectDescription>

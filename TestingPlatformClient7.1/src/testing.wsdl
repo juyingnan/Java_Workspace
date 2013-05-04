@@ -1,0 +1,138 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:ns="http://services.test.ss.pku.edu.cn" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://services.test.ss.pku.edu.cn"> 
+    <wsdl:documentation> 
+		 Testing Services
+	</wsdl:documentation> 
+    <wsdl:types> 
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://services.test.ss.pku.edu.cn"> 
+            <xs:element name="testing"> 
+                <xs:complexType> 
+                    <xs:sequence> 
+                        <xs:element minOccurs="0" name="code" nillable="true" type="xs:string"/> 
+                        <xs:element minOccurs="0" name="options" nillable="true" type="xs:string"/> 
+                    </xs:sequence> 
+                </xs:complexType> 
+            </xs:element> 
+            <xs:element name="testingResponse"> 
+                <xs:complexType> 
+                    <xs:sequence> 
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/> 
+                    </xs:sequence> 
+                </xs:complexType> 
+            </xs:element> 
+            <xs:element name="testingImp"> 
+                <xs:complexType> 
+                    <xs:sequence> 
+                        <xs:element minOccurs="0" name="type" type="xs:int"/> 
+                        <xs:element minOccurs="0" name="code" nillable="true" type="xs:string"/> 
+                        <xs:element minOccurs="0" name="options" nillable="true" type="xs:string"/> 
+                    </xs:sequence> 
+                </xs:complexType> 
+            </xs:element> 
+            <xs:element name="testingImpResponse"> 
+                <xs:complexType> 
+                    <xs:sequence> 
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/> 
+                    </xs:sequence> 
+                </xs:complexType> 
+            </xs:element> 
+        </xs:schema> 
+    </wsdl:types> 
+    <wsdl:message name="testingRequest"> 
+        <wsdl:part name="parameters" element="ns:testing"/> 
+    </wsdl:message> 
+    <wsdl:message name="testingResponse"> 
+        <wsdl:part name="parameters" element="ns:testingResponse"/> 
+    </wsdl:message> 
+    <wsdl:message name="testingImpRequest"> 
+        <wsdl:part name="parameters" element="ns:testingImp"/> 
+    </wsdl:message> 
+    <wsdl:message name="testingImpResponse"> 
+        <wsdl:part name="parameters" element="ns:testingImpResponse"/> 
+    </wsdl:message> 
+    <wsdl:portType name="TestingImpPortType"> 
+        <wsdl:operation name="testing"> 
+            <wsdl:input message="ns:testingRequest" wsaw:Action="urn:testing"/> 
+            <wsdl:output message="ns:testingResponse" wsaw:Action="urn:testingResponse"/> 
+        </wsdl:operation> 
+        <wsdl:operation name="testingImp"> 
+            <wsdl:input message="ns:testingImpRequest" wsaw:Action="urn:testingImp"/> 
+            <wsdl:output message="ns:testingImpResponse" wsaw:Action="urn:testingImpResponse"/> 
+        </wsdl:operation> 
+    </wsdl:portType> 
+    <wsdl:binding name="TestingImpSoap11Binding" type="ns:TestingImpPortType"> 
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/> 
+        <wsdl:operation name="testing"> 
+            <soap:operation soapAction="urn:testing" style="document"/> 
+            <wsdl:input> 
+                <soap:body use="literal"/> 
+            </wsdl:input> 
+            <wsdl:output> 
+                <soap:body use="literal"/> 
+            </wsdl:output> 
+        </wsdl:operation> 
+        <wsdl:operation name="testingImp"> 
+            <soap:operation soapAction="urn:testingImp" style="document"/> 
+            <wsdl:input> 
+                <soap:body use="literal"/> 
+            </wsdl:input> 
+            <wsdl:output> 
+                <soap:body use="literal"/> 
+            </wsdl:output> 
+        </wsdl:operation> 
+    </wsdl:binding> 
+    <wsdl:binding name="TestingImpSoap12Binding" type="ns:TestingImpPortType"> 
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/> 
+        <wsdl:operation name="testing"> 
+            <soap12:operation soapAction="urn:testing" style="document"/> 
+            <wsdl:input> 
+                <soap12:body use="literal"/> 
+            </wsdl:input> 
+            <wsdl:output> 
+                <soap12:body use="literal"/> 
+            </wsdl:output> 
+        </wsdl:operation> 
+        <wsdl:operation name="testingImp"> 
+            <soap12:operation soapAction="urn:testingImp" style="document"/> 
+            <wsdl:input> 
+                <soap12:body use="literal"/> 
+            </wsdl:input> 
+            <wsdl:output> 
+                <soap12:body use="literal"/> 
+            </wsdl:output> 
+        </wsdl:operation> 
+    </wsdl:binding> 
+    <wsdl:binding name="TestingImpHttpBinding" type="ns:TestingImpPortType"> 
+        <http:binding verb="POST"/> 
+        <wsdl:operation name="testing"> 
+            <http:operation location="TestingImp/testing"/> 
+            <wsdl:input> 
+                <mime:content type="text/xml" part="testing"/> 
+            </wsdl:input> 
+            <wsdl:output> 
+                <mime:content type="text/xml" part="testing"/> 
+            </wsdl:output> 
+        </wsdl:operation> 
+        <wsdl:operation name="testingImp"> 
+            <http:operation location="TestingImp/testingImp"/> 
+            <wsdl:input> 
+                <mime:content type="text/xml" part="testingImp"/> 
+            </wsdl:input> 
+            <wsdl:output> 
+                <mime:content type="text/xml" part="testingImp"/> 
+            </wsdl:output> 
+        </wsdl:operation> 
+    </wsdl:binding> 
+    <!--http://sase.seforge.org:80-->
+    <!--http://localhost:8080-->
+    <wsdl:service name="TestingImp"> 
+        <wsdl:port name="TestingImpHttpSoap11Endpoint" binding="ns:TestingImpSoap11Binding"> 
+            <soap:address location="http://localhost:8080/TWeb/services/TestingImp.TestingImpHttpSoap11Endpoint/"/> 
+        </wsdl:port> 
+        <wsdl:port name="TestingImpHttpSoap12Endpoint" binding="ns:TestingImpSoap12Binding"> 
+            <soap12:address location="http://localhost:8080/TWeb/services/TestingImp.TestingImpHttpSoap12Endpoint/"/> 
+        </wsdl:port> 
+        <wsdl:port name="TestingImpHttpEndpoint" binding="ns:TestingImpHttpBinding"> 
+            <http:address location="http://localhost:8080/TWeb/services/TestingImp.TestingImpHttpEndpoint/"/> 
+        </wsdl:port> 
+    </wsdl:service> 
+</wsdl:definitions> 

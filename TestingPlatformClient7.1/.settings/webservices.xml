@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectRoot>
+<url value="http://localhost:8080/TWeb/services/CppASTTesting?wsdl">
+<service name="CppASTTesting">
+<port name="CppASTTestingHttpSoap11Endpoint">
+<operations>
+<operation name="testing(parameters: testing): testingResponse"/>
+</operations>
+</port>
+</service>
+<asPackage absPath="C:\Users\Administrator\Documents\Flex Builder 3\TestingPlatformClient\src\generated\webservices" name="generated.webservices">
+<mainAsClass name="CppASTTesting.as"/>
+<otherAsClass name="Testing_request.as"/>
+<otherAsClass name="BaseCppASTTesting.as"/>
+<otherAsClass name="BaseCppASTTestingSchema.as"/>
+<otherAsClass name="ICppASTTesting.as"/>
+<otherAsClass name="TestingResultEvent.as"/>
+</asPackage>
+</url>
+<url value="http://localhost:8080/TWeb/services/ImpTesting?wsdl">
+<service name="ImpTesting">
+<port name="ImpTestingHttpSoap11Endpoint">
+<operations>
+<operation name="testing(parameters: testing): testingResponse"/>
+</operations>
+</port>
+</service>
+<asPackage absPath="C:\Users\Administrator\Documents\Flex Builder 3\TestingPlatformClient\src\generated\webservices" name="generated.webservices">
+<mainAsClass name="ImpTesting.as"/>
+<otherAsClass name="Testing_request.as"/>
+<otherAsClass name="BaseImpTesting.as"/>
+<otherAsClass name="BaseImpTestingSchema.as"/>
+<otherAsClass name="TestingResultEvent.as"/>
+<otherAsClass name="IImpTesting.as"/>
+</asPackage>
+</url>
+</projectRoot>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="700" height="300" initialize="initializeView();">
+	<mx:Script>  	
+		<![CDATA[
+		import mx.rpc.soap.LoadEvent;
+        	import mx.rpc.soap.WebService;
+            import mx.collections.ArrayCollection;  
+ 			import mx.controls.Alert;
+ 			import mx.events.CloseEvent;
+			import flash.events.*;
+			import mx.rpc.events.*;
+		
+   			public function initializeView():void{
+	  			
+    		
+	    	} 
+	    	
+	    	 
+	    ]]>
+	</mx:Script>
+
+	<mx:Text x="195" y="21" text="Welcome to White-Box Testing Tool Ver 0.0.1" fontWeight="bold" fontSize="18" height="30" fontFamily="Courier New"/>
+	<mx:Text x="318" y="159" text="Please click &quot;Next&quot; button to start" fontWeight="bold" fontSize="16" height="30" fontFamily="Courier New"/>
+	<mx:Text x="195" y="260" text="Powered by School of Software and Microeletronics of Peking University" fontWeight="bold" fontSize="12" height="30" fontFamily="Courier New"/>
+	
+</mx:Canvas>
